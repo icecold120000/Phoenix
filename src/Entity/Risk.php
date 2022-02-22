@@ -42,6 +42,11 @@ class Risk
      */
     private $probabilityRisk;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="projectRisks")
+     */
+    private $project;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +108,18 @@ class Risk
     public function setProbabilityRisk(int $probabilityRisk): self
     {
         $this->probabilityRisk = $probabilityRisk;
+
+        return $this;
+    }
+
+    public function getProject(): ?Project
+    {
+        return $this->project;
+    }
+
+    public function setProject(?Project $project): self
+    {
+        $this->project = $project;
 
         return $this;
     }

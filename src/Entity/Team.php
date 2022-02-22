@@ -44,10 +44,22 @@ class Team
      */
     private $teamParent;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Project::class, mappedBy="teamClient")
+     */
+    private $clientProjects;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Project::class, mappedBy="productionTeam")
+     */
+    private $teamProjects;
+
     public function __construct()
     {
         $this->teamMembers = new ArrayCollection();
         $this->teamParent = new ArrayCollection();
+        $this->clientProjects = new ArrayCollection();
+        $this->teamProjects = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -145,6 +157,66 @@ class Team
             // set the owning side to null (unless already changed)
             if ($teamParent->getTeam() === $this) {
                 $teamParent->setTeam(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Project[]
+     */
+    public function getClientProjects(): Collection
+    {
+        return $this->clientProjects;
+    }
+
+    public function addClientProject(Project $clientProjects): self
+    {
+        if (!$this->clientProjects->contains($clientProjects)) {
+            $this->clientProjects[] = $clientProjects;
+            $clientProjects->setTeamClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProject(Project $clientProjects): self
+    {
+        if ($this->clientProjects->removeElement($clientProjects)) {
+            // set the owning side to null (unless already changed)
+            if ($clientProjects->getTeamClient() === $this) {
+                $clientProjects->setTeamClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Project[]
+     */
+    public function getTeamProjects(): Collection
+    {
+        return $this->teamProjects;
+    }
+
+    public function addTeamProject(Project $teamProject): self
+    {
+        if (!$this->teamProjects->contains($teamProject)) {
+            $this->teamProjects[] = $teamProject;
+            $teamProject->setProductionTeam($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeamProject(Project $teamProject): self
+    {
+        if ($this->teamProjects->removeElement($teamProject)) {
+            // set the owning side to null (unless already changed)
+            if ($teamProject->getProductionTeam() === $this) {
+                $teamProject->setProductionTeam(null);
             }
         }
 

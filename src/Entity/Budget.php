@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BudgetRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -29,8 +31,19 @@ class Budget
 
     /**
      * @ORM\Column(type="integer")
+     * Un reste à faire
      */
     private $quantityLeftBudget;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Project::class, mappedBy="projectBudget")
+     */
+    private $projects;
+
+    public function __construct()
+    {
+        $this->projects = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -69,6 +82,36 @@ class Budget
     public function setQuantityLeftBudget(int $quantityLeftBudget): self
     {
         $this->quantityLeftBudget = $quantityLeftBudget;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Project[]
+     */
+    public function getProjects(): Collection
+    {
+        return $this->projects;
+    }
+
+    public function addProject(Project $project): self
+    {
+        if (!$this->projects->contains($project)) {
+            $this->projects[] = $project;
+            $project->setProjectBudget($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProject(Project $project): self
+    {
+        if ($this->projects->removeElement($project)) {
+            // set the owning side to null (unless already changed)
+            if ($project->getProjectBudget() === $this) {
+                $project->setProjectBudget(null);
+            }
+        }
 
         return $this;
     }

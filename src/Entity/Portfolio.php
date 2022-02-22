@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PortfolioRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -27,6 +29,16 @@ class Portfolio
      * @ORM\JoinColumn(nullable=false)
      */
     private $responsablePortfolio;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Project::class, mappedBy="portfolio")
+     */
+    private $projectsPortfolio;
+
+    public function __construct()
+    {
+        $this->projectsPortfolio = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -53,6 +65,36 @@ class Portfolio
     public function setResponsablePortfolio(?User $responsablePortfolio): self
     {
         $this->responsablePortfolio = $responsablePortfolio;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Project[]
+     */
+    public function getProjectsPortfolio(): Collection
+    {
+        return $this->projectsPortfolio;
+    }
+
+    public function addProjectsPortfolio(Project $projectsPortfolio): self
+    {
+        if (!$this->projectsPortfolio->contains($projectsPortfolio)) {
+            $this->projectsPortfolio[] = $projectsPortfolio;
+            $projectsPortfolio->setPortfolio($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjectsPortfolio(Project $projectsPortfolio): self
+    {
+        if ($this->projectsPortfolio->removeElement($projectsPortfolio)) {
+            // set the owning side to null (unless already changed)
+            if ($projectsPortfolio->getPortfolio() === $this) {
+                $projectsPortfolio->setPortfolio(null);
+            }
+        }
 
         return $this;
     }
