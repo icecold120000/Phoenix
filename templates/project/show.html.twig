@@ -1,9 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Show a project{% endblock %}
-
+{% block title %}{{ project.nameProject }}{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('project') }}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('project') }}
+{% endblock %}
 {% block body %}
 
-    <h1>{{ project.nameProject }}</h1>
+    <h1 class="my-project" data-project-id="{{ project.id }}" data-project-descrip="{{ project.descriptionProject }}">{{ project.nameProject }}</h1>
 
 {% endblock %}
