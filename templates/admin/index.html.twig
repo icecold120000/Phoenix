@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace administration{% endblock %}
+
+{% block body %}
+
+    <h1>Bienvenu dans l'espace administration</h1>
+
+    <table class="table tableAdmin">
+        <thead>
+            <tr>
+                <th>Nom de la fonctionnalité</th>
+                <th>Lien vers la fonctionnalité</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Page de gestion des équipes</td>
+                <td><a href="{{ path('team_index') }}">Gestion des équipes</a></td>
+            </tr>
+            <tr>
+                <td>Page de gestion des utilisateurs</td>
+                <td><a href="{{ path('user_index') }}">Gestion des utilisateurs</a></td>
+            </tr>
+            <tr>
+                <td>Page de gestion des status</td>
+                <td><a href="{{ path('status_index') }}">Gestion des status</a></td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}
