@@ -19,6 +19,20 @@ class FactRepository extends ServiceEntityRepository
         parent::__construct($registry, Fact::class);
     }
 
+    /**
+     * @return Fact[] Returns an array of Fact objects
+     */
+    public function findByProject($value)
+    {
+        return $this->createQueryBuilder('f')
+            ->andWhere('f.project = :val')
+            ->setParameter('val', $value)
+            ->orderBy('f.dateFact', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Fact[] Returns an array of Fact objects
     //  */

@@ -15,7 +15,7 @@ class StatusFixtures extends Fixture
         $status1->setName('Prévu')
             ->setSlug('prevu')
             ->setValue(0)
-            ->getColorStatus('red')
+            ->setColorStatus('red')
         ;
 
         $manager->persist($status1);
@@ -25,7 +25,7 @@ class StatusFixtures extends Fixture
         $status2->setName('En cours')
             ->setSlug('en_cours')
             ->setValue(1)
-            ->getColorStatus('orange')
+            ->setColorStatus('orange')
         ;
 
         $manager->persist($status2);
@@ -35,7 +35,7 @@ class StatusFixtures extends Fixture
         $status3->setName('Terminé')
             ->setSlug('termine')
             ->setValue(2)
-            ->getColorStatus('green')
+            ->setColorStatus('green')
         ;
 
         $manager->persist($status3);

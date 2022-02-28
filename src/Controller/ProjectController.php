@@ -4,8 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Project;
 use App\Form\ProjectType;
+use App\Repository\FactRepository;
 use App\Repository\ProjectRepository;
+use App\Repository\RiskRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,11 +19,19 @@ class ProjectController extends AbstractController
     /**
      * @Route("/", name="app_homepage", methods={"GET","POST"})
      */
-    public function index(ProjectRepository $projectRepository): Response
+    public function index(ProjectRepository $projectRepository,
+                          PaginatorInterface $paginator, Request $request): Response
     {
+        $projects = $projectRepository->findAll();
+
+        $projects = $paginator->paginate(
+            $projects,
+            $request->query->getInt('page',1),
+            15
+        );
 
         return $this->render('project/index.html.twig', [
-            'projects' => $projectRepository->findAll(),
+            'projects' => $projects,
         ]);
     }
 
@@ -49,10 +60,13 @@ class ProjectController extends AbstractController
     /**
      * @Route("/{project}/show", name="app_project_show", methods={"GET"})
      */
-    public function show(Project $project): Response
+    public function show(Project $project,
+                         FactRepository $factRepo, RiskRepository $riskRepo): Response
     {
         return $this->render('project/show.html.twig',[
             'project' => $project,
+            'facts' => $factRepo->findByProject($project->getId()),
+            'risks' => $riskRepo->findByProject($project->getId()),
         ]);
     }
 

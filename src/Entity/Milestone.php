@@ -20,12 +20,12 @@ class Milestone
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nameMilstone;
+    private $nameMilestone;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $valueMilstone;
+    private $valueMilestone;
 
     /**
      * @ORM\Column(type="boolean")
@@ -37,26 +37,26 @@ class Milestone
         return $this->id;
     }
 
-    public function getNameMilstone(): ?string
+    public function getNameMilestone(): ?string
     {
-        return $this->nameMilstone;
+        return $this->nameMilestone;
     }
 
-    public function setNameMilstone(string $nameMilstone): self
+    public function setNameMilestone(string $nameMilestone): self
     {
-        $this->nameMilstone = $nameMilstone;
+        $this->nameMilestone = $nameMilestone;
 
         return $this;
     }
 
-    public function getValueMilstone(): ?int
+    public function getValueMilestone(): ?int
     {
-        return $this->valueMilstone;
+        return $this->valueMilestone;
     }
 
-    public function setValueMilstone(int $valueMilstone): self
+    public function setValueMilestone(int $valueMilestone): self
     {
-        $this->valueMilstone = $valueMilstone;
+        $this->valueMilestone = $valueMilestone;
 
         return $this;
     }

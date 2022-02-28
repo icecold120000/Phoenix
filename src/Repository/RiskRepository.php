@@ -19,6 +19,20 @@ class RiskRepository extends ServiceEntityRepository
         parent::__construct($registry, Risk::class);
     }
 
+    /**
+     * @return Risk[] Returns an array of Risk objects
+     */
+    public function findByProject($value)
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.project = :val')
+            ->setParameter('val', $value)
+            ->orderBy('r.identificationDateRisk', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Risk[] Returns an array of Risk objects
     //  */

@@ -15,7 +15,7 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        for($i=0;$i < 10; $i++){
+        for($i=0; $i < 10; $i++){
             $nb = random_int(0,2);
             /** @var Status $status */
             $status = $this->getReference('status_'.$nb);
@@ -27,13 +27,13 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
             $teamProd = $this->getReference('team_'.random_int(1,4));
 
             /** @var Budget $budget */
-            $budget = $this->getReference('budget'.random_int(0,5));
+            $budget = $this->getReference('budget_'.random_int(0,5));
 
             $project = new Project();
             $project->setNameProject('project'.$i)
                 ->setDescriptionProject('nidzojcznczidiez')
                 ->setStartedAt(new \DateTime())
-                ->setEndedAt(new \DateTime())
+                ->setEndedAt(new \DateTime('+1 week'))
                 ->setCreatedAt(new \DateTime())
                 ->setCodeProject('projectS'.$i)
                 ->setArchiveProject(false)

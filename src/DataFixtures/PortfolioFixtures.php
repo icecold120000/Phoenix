@@ -64,6 +64,7 @@ class PortfolioFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             UserFixtures::class,
+            ProjectFixtures::class,
         ];
     }
 }

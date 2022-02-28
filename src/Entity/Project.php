@@ -56,7 +56,7 @@ class Project
     private $codeProject;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="projects")
+     * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="clientProjects")
      */
     private $teamClient;
 
