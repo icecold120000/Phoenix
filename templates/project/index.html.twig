@@ -20,72 +20,103 @@
             <div>
                 {{ knp_pagination_render(projects) }}
             </div>
-            <h2>Derniers projets de mon équipe :</h2>
-            <table class="table tableAdmin">
-                <thead>
-                    <tr>
-                        <th>Code</th>
-                        <th>Nom</th>
-                        <th>Statut</th>
-                        <th>Équipe projet</th>
-                        <th>Équipe client</th>
-                        <th>Date de début</th>
-                        <th>Date de fin</th>
-                        <th>Voir détail</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for project in app.user.team.teamProjects %}
+            {% if not is_granted('ROLE_ADMIN') %}
+                <h2>Derniers projets de mon équipe :</h2>
+                <table class="table tableAdmin">
+                    <thead>
                         <tr>
-                            <td>{{ project.codeProject }}</td>
-                            <td>{{ project.nameProject }}</td>
-                            <td>{{ project.status.name }}</td>
-                            <td>{{ project.productionTeam.teamName }}</td>
-                            <td>{{ project.teamClient.teamName }}</td>
-                            <td>{{ project.startedAt ? project.startedAt|date('d/m/Y') : '' }}</td>
-                            <td>{{ project.endedAt ? project.endedAt|date('d/m/Y') : '' }}</td>
-                            <td><a href="{{ path('app_project_show',{'project': project.id}) }}" class="btn btn-primary">Lien</a></td>
+                            <th>Code</th>
+                            <th>Nom</th>
+                            <th>Statut</th>
+                            <th>Équipe projet</th>
+                            <th>Équipe client</th>
+                            <th>Date de début</th>
+                            <th>Date de fin</th>
+                            <th>Voir détail</th>
                         </tr>
-                    {% endfor %}
-                    {% for project in app.user.team.clientProjects %}
-                        <tr>
-                            <td>{{ project.codeProject }}</td>
-                            <td>{{ project.nameProject }}</td>
-                            <td>{{ project.status.name }}</td>
-                            <td>{{ project.productionTeam.teamName }}</td>
-                            <td>{{ project.teamClient.teamName }}</td>
-                            <td>{{ project.startedAt ? project.startedAt|date('d/m/Y') : '' }}</td>
-                            <td>{{ project.endedAt ? project.endedAt|date('d/m/Y') : '' }}</td>
-                            <td><a href="{{ path('app_project_show',{'project': project.id}) }}" class="btn btn-primary">Lien</a></td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <h2>Projets à risque :</h2>
-           <table class="table tableAdmin">
-                <thead>
-                    <tr>
-                        <th>Code</th>
-                        <th>Nom du projet</th>
-                        <th>Nom du risque</th>
-                        <th>Sévérité</th>
-                        <th>Voir détail</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for project in app.user.team.teamProjects %}
-                        {% for risk in project.projectRisks %}
+                    </thead>
+                    <tbody>
+                        {% for project in app.user.team.teamProjects %}
                             <tr>
                                 <td>{{ project.codeProject }}</td>
                                 <td>{{ project.nameProject }}</td>
-                                <td>{{ risk.nameRisk }}</td>
-                                <td>{{ risk.severityRisk }}</td>
+                                <td>{{ project.status.name }}</td>
+                                <td>{{ project.productionTeam.teamName }}</td>
+                                <td>{{ project.teamClient.teamName }}</td>
+                                <td>{{ project.startedAt ? project.startedAt|date('d/m/Y') : '' }}</td>
+                                <td>{{ project.endedAt ? project.endedAt|date('d/m/Y') : '' }}</td>
                                 <td><a href="{{ path('app_project_show',{'project': project.id}) }}" class="btn btn-primary">Lien</a></td>
                             </tr>
                         {% endfor %}
-                    {% endfor %}
-                </tbody>
-            </table>
+                        {% for project in app.user.team.clientProjects %}
+                            <tr>
+                                <td>{{ project.codeProject }}</td>
+                                <td>{{ project.nameProject }}</td>
+                                <td>{{ project.status.name }}</td>
+                                <td>{{ project.productionTeam.teamName }}</td>
+                                <td>{{ project.teamClient.teamName }}</td>
+                                <td>{{ project.startedAt ? project.startedAt|date('d/m/Y') : '' }}</td>
+                                <td>{{ project.endedAt ? project.endedAt|date('d/m/Y') : '' }}</td>
+                                <td><a href="{{ path('app_project_show',{'project': project.id}) }}" class="btn btn-primary">Lien</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <h2>Projets à risque :</h2>
+               <table class="table tableAdmin">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Nom du projet</th>
+                            <th>Nom du risque</th>
+                            <th>Sévérité</th>
+                            <th>Voir détail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for project in app.user.team.teamProjects %}
+                            {% for risk in project.projectRisks %}
+                                <tr>
+                                    <td>{{ project.codeProject }}</td>
+                                    <td>{{ project.nameProject }}</td>
+                                    <td>{{ risk.nameRisk }}</td>
+                                    <td>{{ risk.severityRisk }}</td>
+                                    <td><a href="{{ path('app_project_show',{'project': project.id}) }}" class="btn btn-primary">Lien</a></td>
+                                </tr>
+                            {% endfor %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <table class="table tableAdmin">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Nom</th>
+                            <th>Statut</th>
+                            <th>Équipe projet</th>
+                            <th>Équipe client</th>
+                            <th>Date de début</th>
+                            <th>Date de fin</th>
+                            <th>Voir détail</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for project in projects %}
+                            <tr>
+                                <td>{{ project.codeProject }}</td>
+                                <td>{{ project.nameProject }}</td>
+                                <td>{{ project.status.name }}</td>
+                                <td>{{ project.productionTeam.teamName }}</td>
+                                <td>{{ project.teamClient.teamName }}</td>
+                                <td>{{ project.startedAt ? project.startedAt|date('d/m/Y') : '' }}</td>
+                                <td>{{ project.endedAt ? project.endedAt|date('d/m/Y') : '' }}</td>
+                                <td><a href="{{ path('app_project_show',{'project': project.id}) }}" class="btn btn-primary">Lien</a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
             <div>
                 {{ knp_pagination_render(projects) }}
             </div>

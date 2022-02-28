@@ -1,0 +1,51 @@
+{{ form_start(form) }}
+    <div id="part1">
+        {{form_label(form.firstnameUser)}}
+        <div class="divInput">
+            {{form_widget(form.firstnameUser)}}
+        </div>
+        {% if form_errors(form.firstnameUser) %}
+            <div class="erreur">
+        	   {{form_errors(form.firstnameUser)}}
+            </div>
+                {% endif %}
+        {{form_label(form.lastnameUser)}}
+        <div class="divInput">
+            {{form_widget(form.lastnameUser)}}
+        </div>
+        {% if form_errors(form.lastnameUser) %}
+            <div class="erreur">
+                {{form_errors(form.lastnameUser)}}
+            </div>
+        {% endif %}
+        {{form_label(form.email)}}
+        <div class="divInput">
+            {{form_widget(form.email)}}
+        </div>
+        {% if form_errors(form.email) %}
+            <div class="erreur">
+        	   {{form_errors(form.email)}}
+            </div>
+        {% endif %}
+    </div>
+    <div id="part2">
+        {{form_label(form.password)}}
+        <div class="divInput">
+            {{form_widget(form.password)}}
+        </div>
+        {% if form_errors(form.password) %}
+            <div class="erreur">
+                {{form_errors(form.password)}}
+            </div>
+        {% endif %}
+        {{form_label(form.roles)}}
+        <div>
+            {{form_widget(form.roles)}}
+        </div>
+        {% if form_errors(form.roles) %}
+            <div class="erreur">
+                {{form_errors(form.roles)}}
+            </div>
+        {% endif %}
+    </div>
+{{ form_end(form) }}

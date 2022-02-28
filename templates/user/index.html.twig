@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des utilisateurs{% endblock %}
+
+{% block body %}
+    <main id="userIndex">
+        <h1>Liste des utilisateurs</h1>
+        <div>
+            <a href="{{ path('user_new') }}"
+             class="btn btn-primary" id="btnAjout">
+                Ajouter un nouvel utilisateur
+            </a>
+            <a href="{{ path('admin') }}"
+             class="btn btn-secondary" id="btnRetour">
+                Retourner à la liste des fonctionnalités
+            </a>
+        </div>
+        <div id="formFilter">
+            <div id="filtre">
+                {{form_start(form)}}
+                    <div class="selectFiltre">
+                        <div>
+                            <span>{{form_label(form.roleUser)}} </span>
+                            {{form_widget(form.roleUser)}}
+                        </div>
+                        <div>
+                            <span>{{form_label(form.ordrePrenom)}}</span>
+                            {{form_widget(form.ordrePrenom)}}
+                        </div>
+                        <div>
+                            <span>{{form_label(form.ordreNom)}}</span>
+                            {{form_widget(form.ordreNom)}}
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-info">
+                                Afficher
+                            </button>
+                        </div>
+                    </div>
+                {{form_end(form)}}
+            </div>
+        </div>
+        <div>
+            {% if users|length == 0 %}
+                <h2>Aucun utilisateur n'a été trouvé</h2>
+            {% elseif users|length == 1 %}
+                <h2>{{users|length }} utilisateur trouvé</h2>
+            {% elseif users|length > 1 and users|length < 30 %}
+                <h2>{{users|length }} utilisateurs trouvés</h2>
+            {% else %}
+                <h2>{{usersTotal|length }} utilisateurs trouvés</h2>
+            {% endif %}
+        </div>
+        <div>
+            {{ knp_pagination_render(users) }}
+        </div>
+        <table class="table tableAdmin">
+            <thead>
+                <tr>
+                    <th>Prénom et Nom</th>
+                    <th>Email</th>
+                    <th>Rôle</th>
+                    <th>Éditer</th>
+                    <th>Supprimer</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.firstnameUser }} <span>{{ user.lastnameUser }}</span></td>
+                    <td>{{ user.email|replace({"@":"<br/>@"})| raw }}</td>
+                    <td>
+                        {% if user.roles|json_encode == '["ROLE_ADMIN","ROLE_USER"]'%}
+                            Admin
+                        {% else %}
+                            Utilisateur
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ path('user_edit',
+                        {'id': user.id}) }}" class="btn btn-primary">
+                            <i class="far fa-edit"></i>
+                        </a>
+                    </td>
+                    <td>
+                        {%if user.roles|json_encode != '["ROLE_ADMIN","ROLE_USER"]' %}
+                            <a href="{{ path('user_delete_view', {'id': user.id}) }}"
+                             class="btn btn-danger">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        {% else %}
+                            Cet utilisateur ne peut pas être supprimé !
+                        {% endif %}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5" class="erreur">Aucune donnée n'a été trouvée</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div>
+            {{ knp_pagination_render(users) }}
+        </div>
+    </main>
+{% endblock %}

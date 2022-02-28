@@ -35,3 +35,27 @@ img#logo {
     color: red;
     font-weight: bold;
 }
+
+#part1{
+    float: left;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+}
+
+#part2{
+    width: 45%;
+    float: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start
+}
+
+ul.pagination{
+    margin-top: 20px;
+    position: relative;
+    justify-content: center;
+    font-size: 15px;
+}

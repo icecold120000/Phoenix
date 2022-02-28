@@ -29,6 +29,11 @@
                                 <a class="nav-link" href="{{ path('app_new_project') }}">Créer un projet</a>
                             </li>
                         {% endif %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('admin') }}">Espace Administration</a>
+                            </li>
+                        {% endif %}
                         <li class="nav-item">
                             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 
@@ -43,4 +48,5 @@
         </nav>
         {% block body %}{% endblock %}
     </body>
+    <script src="https://kit.fontawesome.com/b33430525b.js" crossorigin="anonymous"></script>
 </html>
