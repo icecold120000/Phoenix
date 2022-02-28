@@ -19,6 +19,38 @@ class ProjectRepository extends ServiceEntityRepository
         parent::__construct($registry, Project::class);
     }
 
+    /**
+     * @return Project[] Returns an array of Project objects
+     */
+    public function findByProdTeam($value): array
+    {
+        return $this->createQueryBuilder('p')
+            ->leftJoin('p.productionTeam','pt')
+            ->leftJoin('pt.teamMembers','tm')
+            ->andWhere('tm.id = :val')
+            ->setParameter('val', $value)
+            ->orderBy('p.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    /**
+     * @return Project[] Returns an array of Project objects
+     */
+    public function findByTeamClient($value): array
+    {
+        return $this->createQueryBuilder('p')
+            ->leftJoin('p.teamClient','tc')
+            ->leftJoin('tc.teamMembers','tm')
+            ->andWhere('tm.id = :val')
+            ->setParameter('val', $value)
+            ->orderBy('p.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Project[] Returns an array of Project objects
     //  */

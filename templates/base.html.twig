@@ -24,11 +24,14 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{{ path('app_homepage') }}">Accueil</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_new_project') }}">Créer un projet</a>
-                        </li>
+                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_new_project') }}">Créer un projet</a>
+                            </li>
+                        {% endif %}
                         <li class="nav-item">
                             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+
                                 <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
                             {% else %}
                                 <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>

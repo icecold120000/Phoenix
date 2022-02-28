@@ -27,7 +27,7 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
             $teamProd = $this->getReference('team_'.random_int(1,4));
 
             /** @var Budget $budget */
-            $budget = $this->getReference('budget_'.random_int(0,5));
+            $budget = $this->getReference('budget_'.random_int(0,4));
 
             $project = new Project();
             $project->setNameProject('project'.$i)
