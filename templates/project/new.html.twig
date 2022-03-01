@@ -1,12 +1,65 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Formulaire{% endblock %}
+{% block title %}Ajouter un nouveau projet{% endblock %}
 
 {% block body %}
+    <h1>Ajouter un nouveau projet</h1>
 
-    {{ form_start(project_form) }}
-            {{ form_widget(project_form) }}
-    <button type="submit" class="btn btn-success">Ajouter projet</button>
-    {{ form_end(project_form) }}
-
+    <div id="divForm">
+        <div class="container-fluid formEntité2" id="formProject">
+            {{ form_start(project_form) }}
+                <div id="part1">
+                    {{form_label(project_form.nameProject)}}
+                    <div class="divInput">
+                        {{form_widget(project_form.nameProject)}}
+                    </div>
+                    {% if form_errors(project_form.nameProject) %}
+                        <div class="erreur">
+                            {{form_errors(project_form.nameProject)}}
+                        </div>
+                    {% endif %}
+                    {{form_label(project_form.descriptionProject)}}
+                    <div class="divInput">
+                        {{form_widget(project_form.descriptionProject)}}
+                    </div>
+                    {% if form_errors(project_form.descriptionProject) %}
+                        <div class="erreur">
+                            {{form_errors(project_form.descriptionProject)}}
+                        </div>
+                    {% endif %}
+                </div>
+                <div id="part2">
+                    {{form_label(project_form.startedAt)}}
+                    <div class="divInput">
+                        {{form_widget(project_form.startedAt)}}
+                    </div>
+                    {% if form_errors(project_form.startedAt) %}
+                        <div class="erreur">
+                            {{form_errors(project_form.startedAt)}}
+                        </div>
+                    {% endif %}
+                    {{form_label(project_form.endedAt)}}
+                    <div class="divInput">
+                        {{form_widget(project_form.endedAt)}}
+                    </div>
+                    {% if form_errors(project_form.endedAt) %}
+                        <div class="erreur">
+                            {{form_errors(project_form.endedAt)}}
+                        </div>
+                    {% endif %}
+                </div>
+            {{ form_end(project_form) }}
+        </div>
+    </div>
+    <div class="row">
+        <div id="divAjout">
+            <button type="submit" class="btn btn-success" form="projectForm">
+                Enregistrer votre projet
+            </button>
+            <a href="{{ path('app_homepage') }}"
+               id="btnRetour" class="btn btn-secondary">
+                Revenir à la liste
+            </a>
+        </div>
+    </div>
 {% endblock %}

@@ -31,9 +31,24 @@ img#logo {
     vertical-align: inherit!important;
 }
 
+.tableAdmin span {
+    display: block;
+}
+
 .erreur {
     color: red;
     font-weight: bold;
+}
+
+/*Formulaire*/
+
+div#divForm {
+    display: flex;
+}
+
+div.divInput {
+    width: 100%;
+    margin: 10px 0;
 }
 
 #part1{
@@ -58,4 +73,10 @@ ul.pagination{
     position: relative;
     justify-content: center;
     font-size: 15px;
+}
+
+/*Formulaire utilisateur*/
+
+div#user_roles label {
+    display: none;
 }

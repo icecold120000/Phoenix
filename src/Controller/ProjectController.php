@@ -46,14 +46,47 @@ class ProjectController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $project->setCreatedAt(new \DateTime('now'));
+
             $entityManager->persist($project);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_project_show', ['project' => $project->getId()]);
+            $this->addFlash(
+                'SuccessProject',
+                'Le projet a été sauvegardé !'
+            );
+
+            return $this->redirectToRoute('app_project_new', []);
         }
 
         return $this->render('project/new.html.twig', [
             'project_form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/edit", name="app_project_edit", methods={"GET", "POST"})
+     */
+    public function edit(EntityManagerInterface $entityManager,
+                         Request $request, Project $project) {
+        $form = $this->createForm(ProjectType::class,$project);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $entityManager->flush();
+            $this->addFlash(
+                'SuccessProject',
+                'Le projet a été modifié !'
+            );
+
+            return $this->redirectToRoute('app_project_edit', ['id' => $project->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('project/edit.html.twig', [
+            'project' => $project,
+            'form' => $form,
         ]);
     }
 

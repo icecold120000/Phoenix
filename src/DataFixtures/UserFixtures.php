@@ -32,6 +32,7 @@ class UserFixtures extends Fixture
 
         $userAdmin = new User();
         $userAdmin
+            ->setRoles([User::ROLE_ADMIN])
             ->setFirstnameUser('admin')
             ->setLastnameUser('admin')
             ->setEmail('admin@gmail.com')

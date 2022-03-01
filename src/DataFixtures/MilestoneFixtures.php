@@ -13,8 +13,8 @@ class MilestoneFixtures extends Fixture
         for ($i = 0; $i < 10; $i++) {
             $milestone = new Milestone();
             $milestone
-                ->setNameMilstone('milestone '.$i)
-                ->setValueMilstone($i)
+                ->setNameMilestone('milestone '.$i)
+                ->setValueMilestone($i)
                 ->setIsRequired(true)
             ;
             $manager->persist($milestone);
