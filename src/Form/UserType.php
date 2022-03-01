@@ -28,17 +28,17 @@ class UserType extends AbstractType
                 'label' => 'E-mail de l\'utilisateur',
                 'required' => true,
             ])
-            ->add('roles', CollectionType::class, [
+            ->add('roles', ChoiceType::class, [
                 'label' => 'Fonction de l\'utilisateur',
-                'entry_type'   => ChoiceType::class,
-                'entry_options'  => [
-                    'choices' => [
-                        'Utilisateur'=> '[]',
-                        'Admin' => User::ROLE_ADMIN,
-                    ],
-                    'required' => false,
-                    'placeholder' => 'Veuillez choisir un rôle',
+                'choices' => [
+                    'Utilisateur'=> User::ROLE_USER,
+                    'Gestionnaire' => User::ROLE_WEBMASTER,
+                    'Admin' => User::ROLE_ADMIN,
                 ],
+                'required' => false,
+                'multiple' => true,
+                'placeholder' => 'Veuillez choisir un rôle',
+
             ])
             ->add('password', PasswordType::class,[
                 'label' => 'Mot de passe de l\'utilisateur',
