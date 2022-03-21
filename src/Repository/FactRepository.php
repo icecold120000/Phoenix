@@ -22,11 +22,11 @@ class FactRepository extends ServiceEntityRepository
     /**
      * @return Fact[] Returns an array of Fact objects
      */
-    public function findByProject($value)
+    public function findByProject($projectId)
     {
         return $this->createQueryBuilder('f')
             ->andWhere('f.project = :val')
-            ->setParameter('val', $value)
+            ->setParameter('val', $projectId)
             ->orderBy('f.dateFact', 'DESC')
             ->getQuery()
             ->getResult()

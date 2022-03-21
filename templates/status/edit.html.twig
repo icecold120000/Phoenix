@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier un statut{% endblock %}
+
+{% block body %}
+    <h1>Modifier un statut</h1>
+
+    <div class="container-fluid formEntité2" id="formStatut">
+        {{ include('status/_form.html.twig') }}
+    </div>
+
+    <div class="row">
+        <div id="divAjout">
+            <button type="submit" class="btn btn-success" form="statusForm">
+                Ajouter votre statut
+            </button>
+            <a href="{{ path('status_index') }}"
+               id="btnRetour" class="btn btn-secondary">
+                Revenir à la liste
+            </a>
+        </div>
+    </div>
+{% endblock %}

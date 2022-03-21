@@ -4,7 +4,6 @@
 
 {% block body %}
     <h1>Ajouter un nouveau projet</h1>
-
     <div id="divForm">
         <div class="container-fluid formEntité2" id="formProject">
             {{ form_start(project_form) }}
@@ -25,6 +24,15 @@
                     {% if form_errors(project_form.descriptionProject) %}
                         <div class="erreur">
                             {{form_errors(project_form.descriptionProject)}}
+                        </div>
+                    {% endif %}
+                    {{form_label(project_form.status)}}
+                    <div class="divInput">
+                        {{form_widget(project_form.status)}}
+                    </div>
+                    {% if form_errors(project_form.status) %}
+                        <div class="erreur">
+                            {{form_errors(project_form.status)}}
                         </div>
                     {% endif %}
                 </div>

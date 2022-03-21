@@ -22,13 +22,13 @@ class ProjectRepository extends ServiceEntityRepository
     /**
      * @return Project[] Returns an array of Project objects
      */
-    public function findByProdTeam($value): array
+    public function findByProdTeam($productionId): array
     {
         return $this->createQueryBuilder('p')
             ->leftJoin('p.productionTeam','pt')
             ->leftJoin('pt.teamMembers','tm')
             ->andWhere('tm.id = :val')
-            ->setParameter('val', $value)
+            ->setParameter('val', $productionId)
             ->orderBy('p.id', 'DESC')
             ->getQuery()
             ->getResult()
@@ -38,18 +38,34 @@ class ProjectRepository extends ServiceEntityRepository
     /**
      * @return Project[] Returns an array of Project objects
      */
-    public function findByTeamClient($value): array
+    public function findByTeamClient($clientId): array
     {
         return $this->createQueryBuilder('p')
             ->leftJoin('p.teamClient','tc')
             ->leftJoin('tc.teamMembers','tm')
             ->andWhere('tm.id = :val')
-            ->setParameter('val', $value)
+            ->setParameter('val', $clientId)
             ->orderBy('p.id', 'DESC')
             ->getQuery()
             ->getResult()
             ;
     }
+
+    /**
+     * @return Project[] Returns an array of Project objects
+     */
+    public function findByStatus($statusId): array
+    {
+        return $this->createQueryBuilder('p')
+            ->leftJoin('p.status','s')
+            ->andWhere('s.id = :val')
+            ->setParameter('val', $statusId)
+            ->orderBy('p.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
 
     // /**
     //  * @return Project[] Returns an array of Project objects

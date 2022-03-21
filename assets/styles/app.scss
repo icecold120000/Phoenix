@@ -28,7 +28,7 @@ img#logo {
     border: solid black;
     font-size: 17px;
     padding: 0.25rem;
-    vertical-align: inherit!important;
+    vertical-align: middle!important;
 }
 
 .tableAdmin span {
@@ -73,4 +73,9 @@ ul.pagination{
     position: relative;
     justify-content: center;
     font-size: 15px;
+}
+
+#formStatut {
+    display: flex;
+    flex-direction: column;
 }

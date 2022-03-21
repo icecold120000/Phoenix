@@ -1,0 +1,42 @@
+{{ form_start(form) }}
+    <div id="part1">
+        {{form_label(form.name)}}
+        <div class="divInput">
+            {{form_widget(form.name)}}
+        </div>
+        {% if form_errors(form.name) %}
+            <div class="erreur">
+                {{form_errors(form.name)}}
+            </div>
+        {% endif %}
+        {{form_label(form.slug)}}
+        <div class="divInput">
+            {{form_widget(form.slug)}}
+        </div>
+        {% if form_errors(form.slug) %}
+            <div class="erreur">
+                {{form_errors(form.slug)}}
+            </div>
+        {% endif %}
+    </div>
+    <div id="part2">
+        {{form_label(form.value)}}
+        <div class="divInput">
+            {{form_widget(form.value)}}
+        </div>
+        {% if form_errors(form.value) %}
+            <div class="erreur">
+                {{form_errors(form.value)}}
+            </div>
+        {% endif %}
+        {{form_label(form.colorStatus)}}
+        <div class="divInput">
+            {{form_widget(form.colorStatus)}}
+        </div>
+        {% if form_errors(form.colorStatus) %}
+            <div class="erreur">
+                {{form_errors(form.colorStatus)}}
+            </div>
+        {% endif %}
+    </div>
+{{ form_end(form) }}

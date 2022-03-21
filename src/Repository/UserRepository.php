@@ -46,9 +46,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             $query->andWhere('u.roles like :role')
                 ->setParameter('role','%'.$roleUser.'%');
         }
-        else{
-            $this->findAll();
-        }
+
         if ($ordreNom != null && $ordrePrenom != null) {
             $query->addOrderBy('u.lastnameUser', $ordreNom)
                 ->addOrderBy('u.firstnameUser', $ordrePrenom);
@@ -59,9 +57,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         elseif ($ordrePrenom == null && $ordreNom != null) {
             $query->orderBy('u.lastnameUser', $ordreNom);
         }
-        else {
-            $this->findAll();
-        }
+
         return $query->getQuery()->getResult();
     }
 

@@ -22,11 +22,11 @@ class RiskRepository extends ServiceEntityRepository
     /**
      * @return Risk[] Returns an array of Risk objects
      */
-    public function findByProject($value)
+    public function findByProject($projectId):array
     {
         return $this->createQueryBuilder('r')
             ->andWhere('r.project = :val')
-            ->setParameter('val', $value)
+            ->setParameter('val', $projectId)
             ->orderBy('r.identificationDateRisk', 'DESC')
             ->getQuery()
             ->getResult()

@@ -36,7 +36,7 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="app_new_project")
+     * @Route("/project/new", name="app_project_new")
      */
     public function new(EntityManagerInterface $entityManager, Request $request): Response
     {
@@ -66,7 +66,7 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="app_project_edit", methods={"GET", "POST"})
+     * @Route("/project/{id}/edit", name="app_project_edit", methods={"GET", "POST"})
      */
     public function edit(EntityManagerInterface $entityManager,
                          Request $request, Project $project) {
@@ -81,17 +81,18 @@ class ProjectController extends AbstractController
                 'Le projet a été modifié !'
             );
 
-            return $this->redirectToRoute('app_project_edit', ['id' => $project->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_project_edit',
+                ['id' => $project->getId()], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('project/edit.html.twig', [
+        return $this->render('project/edit.html.twig', [
             'project' => $project,
-            'form' => $form,
+            'project_form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{project}/show", name="app_project_show", methods={"GET"})
+     * @Route("/project/{project}/show", name="app_project_show", methods={"GET"})
      */
     public function show(Project $project,
                          FactRepository $factRepo, RiskRepository $riskRepo): Response
@@ -101,6 +102,28 @@ class ProjectController extends AbstractController
             'facts' => $factRepo->findByProject($project->getId()),
             'risks' => $riskRepo->findByProject($project->getId()),
         ]);
+    }
+
+    /**
+     * @Route("/project/{id}/delete_view", name="app_project_delete_view", methods={"GET","POST"})
+     */
+    public function delete_view(Project $project): Response
+    {
+        return $this->render('project/delete_view.html.twig', [
+            'project' => $project,
+        ]);
+    }
+    /**
+     * @Route("/project/{id}", name="project_delete", methods={"POST"})
+     */
+    public function delete(Request $request, Project $project, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$project->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($project);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('team_index', [], Response::HTTP_SEE_OTHER);
     }
 
 }
