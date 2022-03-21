@@ -18,6 +18,20 @@ class StatusRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Status::class);
     }
+    /**
+     * @return Status[] Returns an array of Status objects
+     */
+    public function filterStatus($filter): array
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.name like :filter or s.slug like :filter
+             or s.id like :filter')
+            ->setParameter('filter', $filter)
+            ->orderBy('s.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 
     // /**
     //  * @return Status[] Returns an array of Status objects

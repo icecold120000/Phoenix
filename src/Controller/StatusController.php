@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Status;
+use App\Form\Filter\FilterStatusType;
 use App\Form\StatusType;
 use App\Repository\ProjectRepository;
 use App\Repository\StatusRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,12 +20,31 @@ use Symfony\Component\Routing\Annotation\Route;
 class StatusController extends AbstractController
 {
     /**
-     * @Route("/", name="status_index", methods={"GET"})
+     * @Route("/", name="status_index", methods={"GET","POST"})
      */
-    public function index(StatusRepository $statusRepository): Response
+    public function index(StatusRepository $statusRepository,
+                          PaginatorInterface $paginator,
+                          Request $request): Response
     {
+        $statuses = $statusRepository->findAll();
+
+        $form = $this->createForm(FilterStatusType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $statuses = $statusRepository->filterStatus(
+                $form->get('searchStatus')->getData()
+            );
+        }
+
+        $statuses = $paginator->paginate(
+            $statuses,
+            $request->query->getInt('page',1),
+            10
+        );
+
         return $this->render('status/index.html.twig', [
-            'statuses' => $statusRepository->findAll(),
+            'statuses' => $statuses,
+            'filterStatus' => $form->createView(),
         ]);
     }
 

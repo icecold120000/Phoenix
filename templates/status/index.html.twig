@@ -7,12 +7,27 @@
     <a href="{{ path('status_new') }}">
         <button class="btn btn-info">Ajouter un nouveau statut</button>
     </a>
+    <div>
+        {{ form_start(filterStatus) }}
+            <div>
+                <div class="erreur">
+                    {{form_errors(filterStatus.searchStatus)}}
+                </div>
+                {{form_label(filterStatus.searchStatus)}}
+                {{form_help(filterStatus.searchStatus)}}
+                <div>
+                    {{form_widget(filterStatus.searchStatus)}}
+                </div>
+                <button class="btn btn-info" type="submit">Rechercher</button>
+            </div>
+        {{ form_end(filterStatus) }}
+    </div>
     <table class="table tableAdmin">
         <thead>
             <tr>
                 <th>Nom</th>
-                <th>Identifiant</th>
                 <th>Couleur</th>
+                <th>Identifiant</th>
                 <th>Éditer</th>
                 <th>Supprimer</th>
             </tr>
@@ -21,8 +36,8 @@
         {% for status in statuses %}
             <tr>
                 <td>{{ status.name }}</td>
-                <td>{{ status.slug }}</td>
                 <td style="background-color: {{ status.colorStatus }}"></td>
+                <td>{{ status.slug }}</td>
                 <td>
                     <a href="{{ path('status_edit', {'id': status.id}) }}" class="btn btn-primary">
                         <i class="far fa-edit"></i>
