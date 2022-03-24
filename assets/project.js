@@ -10,9 +10,3 @@ import './styles/project.scss';
 
 // start the Stimulus application
 import './bootstrap';
-
-let projectId = document.querySelector('[data-project-id]').dataset.projectId;
-let projectDescrip = document.querySelector('.my-project').dataset.projectDescrip;
-
-console.log(projectId);
-console.log(projectDescrip);

@@ -12,6 +12,17 @@ body {
     background-color: $bgcolor;
 }
 
+main {
+    display: flex;
+    flex-direction: column;
+}
+
+.flash-success {
+    color: green;
+    font-weight: bold;
+    font-size: 2em;
+}
+
 /* Barre de navigation */
 img#logo {
     height: 60px;
@@ -51,7 +62,7 @@ div.divInput {
     margin: 10px 0;
 }
 
-#part1{
+#screenLeft{
     float: left;
     width: 50%;
     display: flex;
@@ -60,7 +71,7 @@ div.divInput {
     padding: 0;
 }
 
-#part2{
+#screenRight{
     width: 45%;
     float: right;
     display: flex;
@@ -75,7 +86,7 @@ ul.pagination{
     font-size: 15px;
 }
 
-#formStatut {
+#formStatut, #formTeam {
     display: flex;
     flex-direction: column;
 }

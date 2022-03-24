@@ -33,8 +33,8 @@ class TeamType extends AbstractType
                     },
                 'required' => true,
             ])
-            ->add('team', EntityType::class,[
-                'label' => 'Équipe parente',
+            ->add('teamParent', EntityType::class,[
+                'label' => 'Équipe parente de celui-ci',
                 'class' => Team::class,
                 'query_builder' => function (TeamRepository $er) {
                     return $er->createQueryBuilder('t')

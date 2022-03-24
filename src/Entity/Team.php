@@ -35,12 +35,12 @@ class Team
     private $teamMembers;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="teamParent")
+     * @ORM\OneToMany(targetEntity=Team::class, mappedBy="teamParent")
      */
-    private $team;
+    private $teamChild;
 
     /**
-     * @ORM\OneToMany(targetEntity=Team::class, mappedBy="team")
+     * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="teamChild")
      */
     private $teamParent;
 
@@ -57,7 +57,7 @@ class Team
     public function __construct()
     {
         $this->teamMembers = new ArrayCollection();
-        $this->teamParent = new ArrayCollection();
+        $this->teamChild = new ArrayCollection();
         $this->clientProjects = new ArrayCollection();
         $this->teamProjects = new ArrayCollection();
     }
@@ -121,14 +121,14 @@ class Team
         return $this;
     }
 
-    public function getTeam(): ?self
+    public function getTeamParent(): ?self
     {
-        return $this->team;
+        return $this->teamParent;
     }
 
-    public function setTeam(?self $team): self
+    public function setTeamParent(?self $teamParent): self
     {
-        $this->team = $team;
+        $this->teamParent = $teamParent;
 
         return $this;
     }
@@ -136,27 +136,27 @@ class Team
     /**
      * @return Collection|self[]
      */
-    public function getTeamParent(): Collection
+    public function getTeamChild(): Collection
     {
-        return $this->teamParent;
+        return $this->teamChild;
     }
 
-    public function addTeamParent(self $teamParent): self
+    public function addTeamChild(self $teamChild): self
     {
-        if (!$this->teamParent->contains($teamParent)) {
-            $this->teamParent[] = $teamParent;
-            $teamParent->setTeam($this);
+        if (!$this->teamChild->contains($teamChild)) {
+            $this->teamChild[] = $teamChild;
+            $teamChild->setTeamParent($this);
         }
 
         return $this;
     }
 
-    public function removeTeamParent(self $teamParent): self
+    public function removeTeamChild(self $teamChild): self
     {
-        if ($this->teamParent->removeElement($teamParent)) {
+        if ($this->teamParent->removeElement($teamChild)) {
             // set the owning side to null (unless already changed)
-            if ($teamParent->getTeam() === $this) {
-                $teamParent->setTeam(null);
+            if ($teamChild->getTeamChild() === $this) {
+                $teamChild->setTeamParent(null);
             }
         }
 

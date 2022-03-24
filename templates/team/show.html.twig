@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail d'une équipe{% endblock %}
+
+{% block body %}
+    <main>
+        <h1>{{ team.teamName }}</h1>
+
+        <p>Chef d'équipe : {{ team.teamLeader.firstnameUser }} {{ team.teamLeader.lastnameUser }}</p>
+
+        {% if team.teamParent %}
+            <p>L'équipe parente : {{ team.teamParent.teamName }}</p>
+        {% endif %}
+
+        <p>Les équipe(s) enfants :</p>
+        <ol>
+            {% if team.teamChild %}
+                {% for child in team.teamChild %}
+                    <li>{{ child.teamName }}</li>
+                {% else %}
+                    <li>Aucune équipe enfant.</li>
+                {% endfor %}
+            {% endif %}
+        </ol>
+
+        <h2>Membre de l'équipe :</h2>
+        <table class="table tableAdmin">
+            <thead>
+                <tr>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for member in team.teamMembers %}
+                    <tr>
+                        <td>{{ member.firstnameUser }}</td>
+                        <td>{{ member.lastnameUser }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4" class="erreur">Aucun membre n'a été trouvé !</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+{% endblock %}

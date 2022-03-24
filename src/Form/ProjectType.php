@@ -31,15 +31,13 @@ class ProjectType extends AbstractType
                 'html5' => true,
                 'widget' => 'single_text',
                 'required' => true,
-                'help' => ' Format : JJ/MM/AAAA',
                 'invalid_message' => 'Votre saisie n\'est pas une date et heure !',
             ])
             ->add('endedAt', DateType::class, [
                 'label' => 'Date de fin',
                 'html5' => true,
                 'widget' => 'single_text',
-                'required' => true,
-                'help' => ' Format : JJ/MM/AAAA',
+                'required' => false,
                 'invalid_message' => 'Votre saisie n\'est pas une date et heure !',
             ])
             ->add('status', EntityType::class,[

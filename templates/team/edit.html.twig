@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier l'équipe{% endblock %}
+
+{% block body %}
+    <main>
+        <h1>Modifier l'équipe</h1>
+
+        {% for message in app.flashes('SuccessTeam') %}
+            <div class="flash-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <div>
+            <div class="container-fluid formEntité2" id="formTeam">
+                {{ include('team/_form.html.twig') }}
+            </div>
+        </div>
+        <div class="row">
+            <div id="divAjout">
+                <button type="submit" class="btn btn-success" form="teamForm">
+                    Modifier votre équipe
+                </button>
+                <a href="{{ path('team_index') }}"
+                   id="btnRetour" class="btn btn-secondary">
+                    Revenir à la liste
+                </a>
+            </div>
+        </div>
+    </main>
+{% endblock %}

@@ -7,7 +7,7 @@
     <div id="divForm">
         <div class="container-fluid formEntité2" id="formProject">
             {{ form_start(project_form) }}
-                <div id="part1">
+                <div id="screenLeft">
                     {{form_label(project_form.nameProject)}}
                     <div class="divInput">
                         {{form_widget(project_form.nameProject)}}
@@ -36,7 +36,7 @@
                         </div>
                     {% endif %}
                 </div>
-                <div id="part2">
+                <div id="screenRight">
                     {{form_label(project_form.startedAt)}}
                     <div class="divInput">
                         {{form_widget(project_form.startedAt)}}

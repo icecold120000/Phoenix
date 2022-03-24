@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Team;
 use App\Entity\User;
+use App\Repository\TeamRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -46,6 +48,17 @@ class UserType extends AbstractType
             ->add('firstnameUser', TextType::class,[
                 'label' => 'Prénom de l\'utilisateur',
                 'required' => true,
+            ])
+            ->add('team', EntityType::class,[
+                'label' => 'Choisir son équipe',
+                'class' => Team::class,
+                'mapped' =>false,
+                'query_builder' => function (TeamRepository $er) {
+                    return $er->createQueryBuilder('t')
+                        ->orderBy('t.id', 'ASC');
+                },
+                'choice_label' => 'teamName',
+                'required' => false,
             ])
         ;
     }

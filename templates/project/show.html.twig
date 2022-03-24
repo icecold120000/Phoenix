@@ -10,80 +10,109 @@
     {{ encore_entry_script_tags('project') }}
 {% endblock %}
 {% block body %}
-    <h1 class="my-project" data-project-id="{{ project.id }}"
-        data-project-descrip="{{ project.descriptionProject }}">{{ project.nameProject }}</h1>
-    <p>Commencé le : {{ project.startedAt ? project.startedAt|date('d/m/Y') : '' }}</p>
-    <p>Terminé le : {{ project.endedAt ? project.endedAt|date('d/m/Y') : '' }}</p>
-    <p>Statut : <span style="color: {{ project.status.colorStatus }}">
-            {{ project.status.name }}</span>
-    </p>
-    <p>Équipe projet : {{ project.productionTeam.teamName }}</p>
-    <p>Équipe client : {{ project.teamClient.teamName }}</p>
-    <p>Budget : {{ project.projectBudget.initialBudget }}€</p>
-    <p>Description{{ project.descriptionProject }}</p>
-    <div>
-        <div>
-            <h2>Faits Marquant :</h2>
-            <table class="table tableAdmin">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Nom</th>
-                        <th>Description</th>
-                        <th>Jalon</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for fact in facts %}
-                        <tr>
-                            <td>{{ fact.dateFact ? fact.dateFact|date('d/m/Y h:m') : '' }}</td>
-                            <td>{{ fact.nameFact }}</td>
-                            <td>{{ fact.descriptionFact }}</td>
-                            <td>{{ fact.milestoneFact.nameMilestone }}</td>
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <td colspan="4" class="erreur">Aucun fait n'a été trouvé !</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div>
-            <h2>Risques :</h2>
-            <table class="table tableAdmin">
-                <thead>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Date d’identification</th>
-                        <th>Date de résolution</th>
-                        <th>Sévérité</th>
-                        <th>Probabilité</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for risk in risks %}
-                        <tr>
-                            <td>{{ risk.nameRisk }}</td>
-                            <td>
-                                {{ risk.identificationDateRisk ?
-                                risk.identificationDateRisk|date('d/m/Y') : '' }}
-                            </td>
-                            <td>
-                                {{ risk.resolutionDateRisk ?
-                                risk.resolutionDateRisk|date('d/m/Y') : '' }}
-                            </td>
-                            <td>{{ risk.severityRisk }}</td>
-                            <td>{{ risk.probabilityRisk }}%</td>
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <td colspan="5" class="erreur">Aucun risque n'a été trouvé !</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
+    <main>
+        <h1 class="my-project">{{ project.nameProject }}</h1>
+        <span>Mise à jour le {{ project.startedAt ? project.startedAt|date('d/m/Y à H:i') : '' }}</span>
 
+        <table class="tableAdmin">
+            <tbody>
+                <tr>
+                    <td>Périmètre</td>
+                    <td class="tdInfo">
+                        <div class="leftTd">
+                            <span>Débuter le : {{ project.startedAt ? project.startedAt|date('d/m/Y') : '' }}</span>
+                            <span>Terminé le : {{ project.endedAt ? project.endedAt|date('d/m/Y') : 'En cours' }}</span>
+                            <span>Statut : {{ project.status.name }}</span>
+                        </div>
+                        <div class="rightTd">
+                            <span>Équipe projet : {{ project.productionTeam.teamName }}</span>
+                            <span>Équipe client : {{ project.teamClient.teamName }}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td>{{ project.descriptionProject }}</td>
+                </tr>
+                <tr>
+                    <td>Budget</td>
+                    <td class="tdInfo">
+                        <div class="leftTd">
+                            <span>Initial: {{ project.projectBudget.initialBudget }}€</span>
+                            <span>Utilisé : {{ project.projectBudget.budgetUsed }}€</span>
+                        </div>
+                        <div class="rightTd">
+                            <span>Reste à faire : {{ project.projectBudget.quantityleftBudget }}€</span>
+                            {% set atterrissage =  project.projectBudget.quantityleftBudget +  project.projectBudget.budgetUsed %}
+                            <span>Atterrissage : {{ atterrissage }}€</span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <div>
+                <h2>Faits Marquant :</h2>
+                <table class="table tableAdmin">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Nom</th>
+                            <th>Description</th>
+                            <th>Jalon</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for fact in facts %}
+                            <tr>
+                                <td>{{ fact.dateFact ? fact.dateFact|date('d/m/Y h:m') : '' }}</td>
+                                <td>{{ fact.nameFact }}</td>
+                                <td>{{ fact.descriptionFact }}</td>
+                                <td>{{ fact.milestoneFact.nameMilestone }}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="4" class="erreur">Aucun fait n'a été trouvé !</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <h2>Risques :</h2>
+                <table class="table tableAdmin">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Date d’identification</th>
+                            <th>Date de résolution</th>
+                            <th>Sévérité</th>
+                            <th>Probabilité</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for risk in risks %}
+                            <tr>
+                                <td>{{ risk.nameRisk }}</td>
+                                <td>
+                                    {{ risk.identificationDateRisk ?
+                                    risk.identificationDateRisk|date('d/m/Y') : '' }}
+                                </td>
+                                <td>
+                                    {{ risk.resolutionDateRisk ?
+                                    risk.resolutionDateRisk|date('d/m/Y') : '' }}
+                                </td>
+                                <td>{{ risk.severityRisk }}</td>
+                                <td>{{ risk.probabilityRisk }}%</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5" class="erreur">Aucun risque n'a été trouvé !</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
 {% endblock %}

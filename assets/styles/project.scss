@@ -10,6 +10,27 @@ body {
     list-style: unset;
 }
 
-#dashboard #part1, #dashboard #part2 {
+#dashboard #screenLeft, #dashboard #screenRight {
     align-items: normal;
+}
+
+/* Detail project*/
+
+td.tdInfo {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+td div.leftTd {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 50%;
+}
+
+td div.rightTd {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 45%;
 }
