@@ -27,6 +27,7 @@ class FactFixtures extends Fixture implements DependentFixtureInterface
                 ->setDateFact(new \DateTime())
                 ->setDescriptionFact('random description')
                 ->setMilestoneFact($milestone)
+                ->setIsValidated(false)
                 ->setProject($project)
             ;
             $manager->persist($fact);

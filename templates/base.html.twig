@@ -29,6 +29,9 @@
                         </li>
                         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ path('app_dashboard_index') }}">Tableau de bord</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ path('app_project_new') }}">Créer un projet</a>
                             </li>
                         {% endif %}

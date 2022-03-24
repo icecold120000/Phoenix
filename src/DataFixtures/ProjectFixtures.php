@@ -32,9 +32,10 @@ class ProjectFixtures extends Fixture implements DependentFixtureInterface
             $project = new Project();
             $project->setNameProject('project'.$i)
                 ->setDescriptionProject('nidzojcznczidiez')
-                ->setStartedAt(new \DateTime())
+                ->setStartedAt(new \DateTime('now'))
                 ->setEndedAt(new \DateTime('+1 week'))
-                ->setCreatedAt(new \DateTime())
+                ->setCreatedAt(new \DateTime('now'))
+                ->setUpdatedAt(new \DateTime('now'))
                 ->setCodeProject('projectS'.$i)
                 ->setArchiveProject(false)
                 ->setProjectBudget($budget)

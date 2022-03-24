@@ -47,7 +47,10 @@ class ProjectController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $project->setCreatedAt(new \DateTime('now'));
+            $project
+                ->setCreatedAt(new \DateTime('now'))
+                ->setUpdatedAt(new \DateTime('now'))
+            ;
 
             $entityManager->persist($project);
             $entityManager->flush();
@@ -74,7 +77,9 @@ class ProjectController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $project
+                ->setUpdatedAt(new \DateTime('now'))
+            ;
             $entityManager->flush();
             $this->addFlash(
                 'SuccessProject',

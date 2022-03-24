@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de bord{% endblock %}
+{% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('project') }}
+{% endblock %}
+{% block body %}
+    <main id="dashboard">
+        <div class="container">
+            <h1>Tableau de bord</h1>
+            <div>
+                <h2><i class="fas fa-calendar"></i> Dernier jalons majeurs</h2>
+                <ol>
+                    {% for milestoneObtained in milestonesObtained %}
+                        <li>{{ milestoneObtained.milestoneFact.nameMilestone }} - {{ milestoneObtained.milestoneFact.dateObtained|date('d/m/Y') }}</li>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+        <div id="part1" class="container">
+            <div>
+                <h2><i class="far fa-square"></i> Faits passés à vérifier</h2>
+                <ol>
+                    {% for factNotConfirmed in factsNotConfirmed %}
+                        <li>
+                            <a href="#">{{ factNotConfirmed.nameFact }}</a> - <a href="{{ path('app_project_show',{'project': factNotConfirmed.project.id}) }}">{{ factNotConfirmed.project.nameProject }}</a> - {{ factNotConfirmed.dateFact|date('d/m/Y') }}
+                        </li>
+                    {% else %}
+                        <p class="erreur">Aucun fait n'a été trouvé !</p>
+                    {% endfor %}
+                </ol>
+            </div>
+            <div>
+                <h2><i class="far fa-edit"></i> Derniers projets mis à jour </h2>
+                <ol>
+                    {% for updatedProject in lastUpdatedProjects %}
+                        <li><a href="{{ path('app_project_show',{'project': updatedProject.id}) }}">{{ updatedProject.nameProject }}</a> - {{ updatedProject.updatedAt|date('d/m/Y') }}</li>
+                    {% else %}
+                        <p class="erreur">Aucun projet n'a été trouvé !</p>
+                    {% endfor %}
+                </ol>
+                <a href="{{ path('app_homepage') }}">Afficher tous les projets</a>
+            </div>
+        </div>
+        <div id="part2" class="container">
+            <div>
+                <h2><i class="fas fa-stream"></i> Mes projets</h2>
+                <ol>
+                    {% for project in myProjects %}
+                        <li><a href="{{ path('app_project_show',{'project': project.id}) }}">{{ project.nameProject }}</a> - {{ project.updatedAt|date('d/m/Y') }}</li>
+                    {% else %}
+                        <p class="erreur">Aucun projet n'a été trouvé !</p>
+                    {% endfor %}
+                </ol>
+            </div>
+            <div>
+                <a href="{{ path('app_homepage') }}">Afficher tous mes projets</a>
+                <h2><i class="fas fa-chart-pie"></i> Nombre de projets par statut</h2>
+                <ol>
+                    {% for status in statuses %}
+                        <p>{{ status.name }} : {{ status.projects|length }}</p>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+    </main>
+{% endblock %}

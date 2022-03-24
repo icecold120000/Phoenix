@@ -21,14 +21,31 @@ class ProjectRepository extends ServiceEntityRepository
 
     /**
      * @return Project[] Returns an array of Project objects
+     * @throws \Exception
      */
-    public function findByProdTeam($productionId): array
+    public function findLastUpdatedProjects(): array
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.updatedAt < :date')
+            ->setParameter('date', new \DateTime('now',new \DateTimeZone('Europe/Paris')))
+            ->orderBy('p.id', 'DESC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    /**
+     * @return Project[] Returns an array of Project objects
+     */
+    public function findByProdTeam($userId): array
     {
         return $this->createQueryBuilder('p')
             ->leftJoin('p.productionTeam','pt')
             ->leftJoin('pt.teamMembers','tm')
-            ->andWhere('tm.id = :val')
-            ->setParameter('val', $productionId)
+            ->leftJoin('pt.teamLeader','tl')
+            ->andWhere('tm.id = :user or tl.id = :user')
+            ->setParameter('user', $userId)
             ->orderBy('p.id', 'DESC')
             ->getQuery()
             ->getResult()
@@ -38,17 +55,19 @@ class ProjectRepository extends ServiceEntityRepository
     /**
      * @return Project[] Returns an array of Project objects
      */
-    public function findByTeamClient($clientId): array
+    public function findByTeamClient($userId): array
     {
         return $this->createQueryBuilder('p')
             ->leftJoin('p.teamClient','tc')
             ->leftJoin('tc.teamMembers','tm')
-            ->andWhere('tm.id = :val')
-            ->setParameter('val', $clientId)
+            ->leftJoin('tc.teamLeader','tl')
+            ->andWhere('tm.id = :user or tl.id = :user')
+            ->setParameter('user', $userId)
             ->orderBy('p.id', 'DESC')
             ->getQuery()
             ->getResult()
             ;
+
     }
 
     /**
@@ -58,8 +77,8 @@ class ProjectRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('p')
             ->leftJoin('p.status','s')
-            ->andWhere('s.id = :val')
-            ->setParameter('val', $statusId)
+            ->andWhere('s.id = :status')
+            ->setParameter('status', $statusId)
             ->orderBy('p.id', 'DESC')
             ->getQuery()
             ->getResult()

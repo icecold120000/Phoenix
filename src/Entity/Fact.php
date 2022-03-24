@@ -42,6 +42,11 @@ class Fact
      */
     private $project;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isValidated;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +108,18 @@ class Fact
     public function setProject(?Project $project): self
     {
         $this->project = $project;
+
+        return $this;
+    }
+
+    public function getIsValidated(): ?bool
+    {
+        return $this->isValidated;
+    }
+
+    public function setIsValidated(bool $isValidated): self
+    {
+        $this->isValidated = $isValidated;
 
         return $this;
     }

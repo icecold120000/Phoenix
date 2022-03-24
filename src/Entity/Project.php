@@ -46,11 +46,6 @@ class Project
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Status::class)
-     */
-    private $status;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $codeProject;
@@ -89,6 +84,17 @@ class Project
      * @ORM\ManyToOne(targetEntity=Portfolio::class, inversedBy="projectsPortfolio")
      */
     private $portfolio;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Status::class, inversedBy="projects")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $status;
 
     public function __construct()
     {
@@ -168,18 +174,6 @@ class Project
     {
         $this->createdAt = new \DateTimeImmutable();
 
-    }
-
-    public function getStatus(): ?Status
-    {
-        return $this->status;
-    }
-
-    public function setStatus(?Status $status): self
-    {
-        $this->status = $status;
-
-        return $this;
     }
 
     public function getCodeProject(): ?string
@@ -310,6 +304,30 @@ class Project
     public function setPortfolio(?Portfolio $portfolio): self
     {
         $this->portfolio = $portfolio;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getStatus(): ?Status
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?Status $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

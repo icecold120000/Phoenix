@@ -20,17 +20,22 @@ class Milestone
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nameMilestone;
+    private ?string $nameMilestone;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $valueMilestone;
+    private ?int $valueMilestone;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $is_required;
+    private ?bool $isRequired;
+
+    /**
+     * @ORM\Column(type="date",nullable=true)
+     */
+    private $dateObtained;
 
     public function getId(): ?int
     {
@@ -63,12 +68,24 @@ class Milestone
 
     public function getIsRequired(): ?bool
     {
-        return $this->is_required;
+        return $this->isRequired;
     }
 
-    public function setIsRequired(bool $is_required): self
+    public function setIsRequired(bool $isRequired): self
     {
-        $this->is_required = $is_required;
+        $this->isRequired = $isRequired;
+
+        return $this;
+    }
+
+    public function getDateObtained(): ?\DateTimeInterface
+    {
+        return $this->dateObtained;
+    }
+
+    public function setDateObtained(\DateTimeInterface $dateObtained): self
+    {
+        $this->dateObtained = $dateObtained;
 
         return $this;
     }

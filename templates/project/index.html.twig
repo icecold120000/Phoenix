@@ -3,9 +3,6 @@
 {% block title %}Liste des projets{% endblock %}
 
 {% block body %}
-    <style>
-        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    </style>
 
     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
         <div class="example-wrapper">
@@ -41,7 +38,7 @@
                             <tr>
                                 <td>{{ project.codeProject }}</td>
                                 <td>{{ project.nameProject }}</td>
-                                <td>{{ project.status.name }}</td>
+                                <td style="background-color: {{ project.status.colorStatus }}"></td>
                                 <td>{{ project.productionTeam.teamName }}</td>
                                 <td>{{ project.teamClient.teamName }}</td>
                                 <td>{{ project.startedAt ? project.startedAt|date('d/m/Y') : '' }}</td>
@@ -70,7 +67,7 @@
                             <tr>
                                 <td>{{ project.codeProject }}</td>
                                 <td>{{ project.nameProject }}</td>
-                                <td>{{ project.status.name }}</td>
+                                <td style="background-color: {{ project.status.colorStatus }}"></td>
                                 <td>{{ project.productionTeam.teamName }}</td>
                                 <td>{{ project.teamClient.teamName }}</td>
                                 <td>{{ project.startedAt ? project.startedAt|date('d/m/Y') : '' }}</td>
@@ -162,7 +159,7 @@
                             <tr>
                                 <td>{{ project.codeProject }}</td>
                                 <td>{{ project.nameProject }}</td>
-                                <td>{{ project.status.name }}</td>
+                                <td style="background-color: {{ project.status.colorStatus }}"></td>
                                 <td>{{ project.productionTeam.teamName }}</td>
                                 <td>{{ project.teamClient.teamName }}</td>
                                 <td>{{ project.startedAt ? project.startedAt|date('d/m/Y') : '' }}</td>
