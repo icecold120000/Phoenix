@@ -1,0 +1,51 @@
+{{ form_start(form) }}
+    <div id="screenLeft">
+        {{form_label(form.nameRisk)}}
+        <div class="divInput">
+            {{form_widget(form.nameRisk)}}
+        </div>
+        {% if form_errors(form.nameRisk) %}
+            <div class="erreur">
+                {{form_errors(form.nameRisk)}}
+            </div>
+        {% endif %}
+        {{form_label(form.identificationDateRisk)}}
+        <div class="divInput">
+            {{form_widget(form.identificationDateRisk)}}
+        </div>
+        {% if form_errors(form.identificationDateRisk) %}
+            <div class="erreur">
+                {{form_errors(form.identificationDateRisk)}}
+            </div>
+        {% endif %}
+        {{form_label(form.resolutionDateRisk)}}
+        <div class="divInput">
+            {{form_widget(form.resolutionDateRisk)}}
+        </div>
+        {% if form_errors(form.resolutionDateRisk) %}
+            <div class="erreur">
+                {{form_errors(form.resolutionDateRisk)}}
+            </div>
+        {% endif %}
+    </div>
+    <div id="screenRight">
+        {{form_label(form.severityRisk)}}
+        <div class="divInput">
+            {{form_widget(form.severityRisk)}}
+        </div>
+        {% if form_errors(form.severityRisk) %}
+            <div class="erreur">
+                {{form_errors(form.severityRisk)}}
+            </div>
+        {% endif %}
+        {{form_label(form.probabilityRisk)}}
+        <div class="divInput">
+            {{form_widget(form.probabilityRisk)}}
+        </div>
+        {% if form_errors(form.probabilityRisk) %}
+            <div class="erreur">
+                {{form_errors(form.probabilityRisk)}}
+            </div>
+        {% endif %}
+    </div>
+{{ form_end(form) }}

@@ -25,32 +25,32 @@ class Team
     private $teamName;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="teams")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="teams", cascade={"persist"})
      */
     private $teamLeader;
 
     /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="team")
+     * @ORM\OneToMany(targetEntity=User::class, mappedBy="team", cascade={"persist"})
      */
     private $teamMembers;
 
     /**
-     * @ORM\OneToMany(targetEntity=Team::class, mappedBy="teamParent")
+     * @ORM\OneToMany(targetEntity=Team::class, mappedBy="teamParent", cascade={"persist"})
      */
     private $teamChild;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="teamChild")
+     * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="teamChild", cascade={"persist"})
      */
     private $teamParent;
 
     /**
-     * @ORM\OneToMany(targetEntity=Project::class, mappedBy="teamClient")
+     * @ORM\OneToMany(targetEntity=Project::class, mappedBy="teamClient", orphanRemoval=true)
      */
     private $clientProjects;
 
     /**
-     * @ORM\OneToMany(targetEntity=Project::class, mappedBy="productionTeam")
+     * @ORM\OneToMany(targetEntity=Project::class, mappedBy="productionTeam", orphanRemoval=true)
      */
     private $teamProjects;
 

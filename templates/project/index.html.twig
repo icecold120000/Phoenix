@@ -44,7 +44,7 @@
                                 <td>{{ project.startedAt ? project.startedAt|date('d/m/Y') : '' }}</td>
                                 <td>{{ project.endedAt ? project.endedAt|date('d/m/Y') : '' }}</td>
                                 <td>
-                                    <a href="{{ path('app_project_show',{'project': project.id}) }}"
+                                    <a href="{{ path('app_project_show',{'projectId': project.id}) }}"
                                        class="btn btn-info">
                                         Lien
                                     </a>
@@ -73,7 +73,7 @@
                                 <td>{{ project.startedAt ? project.startedAt|date('d/m/Y') : '' }}</td>
                                 <td>{{ project.endedAt ? project.endedAt|date('d/m/Y') : '' }}</td>
                                 <td>
-                                    <a href="{{ path('app_project_show',{'project': project.id}) }}"
+                                    <a href="{{ path('app_project_show',{'projectId': project.id}) }}"
                                        class="btn btn-info">
                                         Lien
                                     </a>
@@ -116,7 +116,7 @@
                                     <td>{{ risk.nameRisk }}</td>
                                     <td>{{ risk.severityRisk }}</td>
                                     <td>
-                                        <a href="{{ path('app_project_show',{'project': project.id}) }}"
+                                        <a href="{{ path('app_project_show',{'projectId': project.id}) }}"
                                            class="btn btn-info">
                                             Lien
                                         </a>
@@ -165,7 +165,7 @@
                                 <td>{{ project.startedAt ? project.startedAt|date('d/m/Y') : '' }}</td>
                                 <td>{{ project.endedAt ? project.endedAt|date('d/m/Y') : '' }}</td>
                                 <td>
-                                    <a href="{{ path('app_project_show',{'project': project.id}) }}"
+                                    <a href="{{ path('app_project_show',{'projectId': project.id}) }}"
                                        class="btn btn-info">
                                         Lien
                                     </a>

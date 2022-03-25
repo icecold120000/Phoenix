@@ -51,27 +51,27 @@ class Project
     private $codeProject;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="clientProjects")
+     * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="clientProjects", cascade={"persist"})
      */
     private $teamClient;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="teamProjects")
+     * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="teamProjects", cascade={"persist"})
      */
     private $productionTeam;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Budget::class, inversedBy="projects")
+     * @ORM\ManyToOne(targetEntity=Budget::class, inversedBy="projects", cascade={"persist"})
      */
     private $projectBudget;
 
     /**
-     * @ORM\OneToMany(targetEntity=Fact::class, mappedBy="project")
+     * @ORM\OneToMany(targetEntity=Fact::class, mappedBy="project", orphanRemoval=true)
      */
     private $projectFacts;
 
     /**
-     * @ORM\OneToMany(targetEntity=Risk::class, mappedBy="project")
+     * @ORM\OneToMany(targetEntity=Risk::class, mappedBy="project", orphanRemoval=true)
      */
     private $projectRisks;
 
@@ -81,7 +81,7 @@ class Project
     private $archiveProject;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Portfolio::class, inversedBy="projectsPortfolio")
+     * @ORM\ManyToOne(targetEntity=Portfolio::class, inversedBy="projectsPortfolio", cascade={"persist","remove"})
      */
     private $portfolio;
 
@@ -91,7 +91,7 @@ class Project
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Status::class, inversedBy="projects")
+     * @ORM\ManyToOne(targetEntity=Status::class, inversedBy="projects", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $status;

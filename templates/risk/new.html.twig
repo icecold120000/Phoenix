@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un risque{% endblock %}
+
+{% block body %}
+    <h1>Ajouter un risque</h1>
+    {% for message in app.flashes('SuccessRisk') %}
+        <div class="flash-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <div class="container-fluid formEntité2" id="formStatut">
+        {{ include('risk/_form.html.twig') }}
+    </div>
+
+    <div class="row">
+        <div id="divAjout">
+            <button type="submit" class="btn btn-success" form="riskForm">
+                Ajouter votre risque
+            </button>
+            <a href="{{ path('app_project_show',{'projectId' : projectId }) }}"
+               id="btnRetour" class="btn btn-secondary">
+                Revenir à la liste
+            </a>
+        </div>
+    </div>
+{% endblock %}

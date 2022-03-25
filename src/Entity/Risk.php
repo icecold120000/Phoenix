@@ -43,7 +43,7 @@ class Risk
     private $probabilityRisk;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="projectRisks")
+     * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="projectRisks", cascade={"persist"})
      */
     private $project;
 

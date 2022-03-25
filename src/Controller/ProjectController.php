@@ -9,6 +9,7 @@ use App\Repository\ProjectRepository;
 use App\Repository\RiskRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -97,7 +98,8 @@ class ProjectController extends AbstractController
     }
 
     /**
-     * @Route("/project/{project}/show", name="app_project_show", methods={"GET"})
+     * @Route("/project/{projectId}/show", name="app_project_show", methods={"GET"})
+     * @Entity("project", expr="repository.find(projectId)")
      */
     public function show(Project $project,
                          FactRepository $factRepo, RiskRepository $riskRepo): Response

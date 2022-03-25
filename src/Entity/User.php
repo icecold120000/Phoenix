@@ -55,12 +55,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $lastnameUser;
 
     /**
-     * @ORM\OneToMany(targetEntity=Team::class, mappedBy="teamLeader")
+     * @ORM\OneToMany(targetEntity=Team::class, mappedBy="teamLeader", cascade={"persist"})
      */
     private $teams;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="teamMembers")
+     * @ORM\ManyToOne(targetEntity=Team::class, inversedBy="teamMembers", cascade={"persist"})
      */
     private $team;
 

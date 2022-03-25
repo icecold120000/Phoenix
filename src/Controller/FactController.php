@@ -7,6 +7,7 @@ use App\Entity\Project;
 use App\Form\FactType;
 use App\Repository\FactRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,15 +17,18 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/fact')]
 class FactController extends AbstractController
 {
-    #[Route('/new', name: 'fact_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/new/{id}', name: 'fact_new', methods: ['GET', 'POST'])]
+    /**
+     * @Entity("project", expr="repository.find(id)")
+     */
+    public function new(Request $request, EntityManagerInterface $entityManager,
+                        Project $project): Response
     {
         $fact = new Fact();
         $form = $this->createForm(FactType::class, $fact);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $fact->setProject($project);
             $entityManager->persist($fact);
             $entityManager->flush();
             $this->addFlash(
@@ -32,7 +36,7 @@ class FactController extends AbstractController
                 'Votre fait a été ajouté !'
             );
 
-            return $this->redirectToRoute('fact_new', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('fact_new', ['id' => $project->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('fact/new.html.twig', [
@@ -65,8 +69,13 @@ class FactController extends AbstractController
 
     }
 
-    #[Route('/{id}/edit', name: 'fact_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Fact $fact, EntityManagerInterface $entityManager): Response
+    #[Route('/{id}/edit/{projectId}', name: 'fact_edit', methods: ['GET', 'POST'])]
+    /**
+     * @Entity("project", expr="repository.find(projectId)")
+     */
+    public function edit(Request $request, Fact $fact,
+                         EntityManagerInterface $entityManager,
+                         Project $project): Response
     {
         $form = $this->createForm(FactType::class, $fact);
         $form->handleRequest($request);
@@ -84,6 +93,7 @@ class FactController extends AbstractController
         return $this->renderForm('fact/edit.html.twig', [
             'fact' => $fact,
             'form' => $form,
+            'projectId' => $project->getId(),
         ]);
     }
 

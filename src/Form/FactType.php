@@ -36,8 +36,7 @@ class FactType extends AbstractType
             ])
             ->add('descriptionFact', TextareaType::class,[
                 'label' => 'Description du fait',
-                'required' => false,
-                'mapped' => false,
+                'required' => true,
                 'constraints' => [
                     new NotBlank(['message' => 'Veuillez saisir une description !'])
                 ],

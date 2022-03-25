@@ -25,13 +25,13 @@ class Portfolio
     private $namePortfolio;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="portfolios")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="portfolios", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $responsablePortfolio;
 
     /**
-     * @ORM\OneToMany(targetEntity=Project::class, mappedBy="portfolio")
+     * @ORM\OneToMany(targetEntity=Project::class, mappedBy="portfolio", cascade={"persist"})
      */
     private $projectsPortfolio;
 

@@ -33,7 +33,7 @@ class Fact
     private $descriptionFact;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Milestone::class)
+     * @ORM\ManyToOne(targetEntity=Milestone::class, cascade={"persist"})
      */
     private $milestoneFact;
 
