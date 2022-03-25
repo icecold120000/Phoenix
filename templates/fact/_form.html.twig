@@ -1,0 +1,51 @@
+{{ form_start(form) }}
+    <div id="screenLeft">
+        {{form_label(form.nameFact)}}
+        <div class="divInput">
+            {{form_widget(form.nameFact)}}
+        </div>
+        {% if form_errors(form.nameFact) %}
+            <div class="erreur">
+                {{form_errors(form.nameFact)}}
+            </div>
+        {% endif %}
+        {{form_label(form.descriptionFact)}}
+        <div class="divInput">
+            {{form_widget(form.descriptionFact)}}
+        </div>
+        {% if form_errors(form.descriptionFact) %}
+            <div class="erreur">
+                {{form_errors(form.descriptionFact)}}
+            </div>
+        {% endif %}
+        {{form_label(form.isValidated)}}
+        <div class="divInput">
+            {{form_widget(form.isValidated)}}
+        </div>
+        {% if form_errors(form.isValidated) %}
+            <div class="erreur">
+                {{form_errors(form.isValidated)}}
+            </div>
+        {% endif %}
+    </div>
+    <div id="screenRight">
+        {{form_label(form.dateFact)}}
+        <div class="divInput">
+            {{form_widget(form.dateFact)}}
+        </div>
+        {% if form_errors(form.dateFact) %}
+            <div class="erreur">
+                {{form_errors(form.dateFact)}}
+            </div>
+        {% endif %}
+        {{form_label(form.milestoneFact)}}
+        <div class="divInput">
+            {{form_widget(form.milestoneFact)}}
+        </div>
+        {% if form_errors(form.milestoneFact) %}
+            <div class="erreur">
+                {{form_errors(form.milestoneFact)}}
+            </div>
+        {% endif %}
+    </div>
+{{ form_end(form) }}

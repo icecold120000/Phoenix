@@ -2,12 +2,8 @@
 
 {% block title %}{{ project.nameProject }}{% endblock %}
 {% block stylesheets %}
-    {{ parent() }}
+    {{ encore_entry_link_tags('app') }}
     {{ encore_entry_link_tags('project') }}
-{% endblock %}
-{% block javascripts %}
-    {{ parent() }}
-    {{ encore_entry_script_tags('project') }}
 {% endblock %}
 {% block body %}
     <main>
@@ -57,15 +53,13 @@
                             {% for fact in facts|filter(fact => fact.dateFact|date('m') < "now"|date('m'))%}
                                 {% if loop.index < 6 %}
                                     <li>
-                                        <a>{{ fact.nameFact }} - {{ fact.dateFact ? fact.dateFact|date('d/m/Y h:m') : '' }}</a>
+                                        <a href="{{ path('fact_show',{'id': fact.id}) }}">{{ fact.nameFact }} - {{ fact.dateFact ? fact.dateFact|date('d/m/Y h:m') : '' }}</a>
                                         <span>
-                                            <a class="btn btn-primary">
+                                            <a class="btn btn-primary" href="{{ path('fact_edit',{'id': fact.id}) }}">
                                                 <i class="far fa-edit"></i>
                                             </a>
                                             -
-                                            <a class="btn btn-danger">
-                                                <i class="fas fa-trash"></i>
-                                            </a>
+                                            {{ include('fact/_delete_form.html.twig') }}
                                         </span>
                                     </li>
                                 {% endif %}
@@ -86,15 +80,13 @@
                             {% for fact in facts|filter(fact => fact.dateFact|date('m') >= "now"|date('m'))%}
                                 {% if loop.index < 6 %}
                                     <li>
-                                        <a>{{ fact.nameFact }} - {{ fact.dateFact ? fact.dateFact|date('d/m/Y h:m') : '' }}</a>
+                                        <a href="{{ path('fact_show',{'id': fact.id}) }}">{{ fact.nameFact }} - {{ fact.dateFact ? fact.dateFact|date('d/m/Y h:m') : '' }}</a>
                                         <span>
-                                            <a class="btn btn-primary">
+                                            <a class="btn btn-primary" href="{{ path('fact_edit',{'id': fact.id}) }}">
                                                 <i class="far fa-edit"></i>
                                             </a>
                                             -
-                                            <a class="btn btn-danger">
-                                                <i class="fas fa-trash"></i>
-                                            </a>
+                                            {{ include('fact/_delete_form.html.twig') }}
                                         </span>
                                     </li>
                                 {% endif %}
@@ -125,17 +117,15 @@
                                                     {% for fact in facts %}
                                                         <tr>
                                                             <td>
-                                                                <a>{{ fact.nameFact }} - {{ fact.dateFact ? fact.dateFact|date('d/m/Y h:m') : '' }}</a>
+                                                                <a href="{{ path('fact_show',{'id': fact.id}) }}">{{ fact.nameFact }} - {{ fact.dateFact ? fact.dateFact|date('d/m/Y h:m') : '' }}</a>
                                                             </td>
                                                             <td>
-                                                                <a class="btn btn-primary">
+                                                                <a class="btn btn-primary" href="{{ path('fact_edit',{'id': fact.id}) }}">
                                                                     <i class="far fa-edit"></i>
                                                                 </a>
                                                             </td>
                                                             <td>
-                                                                <a class="btn btn-danger">
-                                                                    <i class="fas fa-trash"></i>
-                                                                </a>
+                                                                {{ include('fact/_delete_form.html.twig') }}
                                                             </td>
                                                         </tr>
                                                     {% else %}
@@ -168,6 +158,8 @@
                                     <th>Date de résolution</th>
                                     <th>Sévérité</th>
                                     <th>Probabilité</th>
+                                    <th>Modifier</th>
+                                    <th>Supprimer</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -183,8 +175,22 @@
                                                 {{ risk.resolutionDateRisk ?
                                                 risk.resolutionDateRisk|date('d/m/Y') : '' }}
                                             </td>
-                                            <td>{{ risk.severityRisk }}</td>
-                                            <td>{{ risk.probabilityRisk }}%</td>
+                                            <td>
+                                                {{ risk.severityRisk }}
+                                            </td>
+                                            <td>
+                                                {{ risk.probabilityRisk }}%
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-primary">
+                                                    <i class="far fa-edit"></i>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-danger">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                     {% endif %}
                                 {% else %}

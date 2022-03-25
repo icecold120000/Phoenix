@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un fait{% endblock %}
+
+{% block body %}
+    <main>
+        <h1>Ajouter un fait</h1>
+
+        {% for message in app.flashes('SuccessFact') %}
+            <div class="flash-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <div>
+            <div class="container-fluid formEntité2" id="formTeam">
+                {{ include('fact/_form.html.twig') }}
+            </div>
+        </div>
+        <div class="row">
+            <div id="divAjout">
+                <button type="submit" class="btn btn-success" form="factForm">
+                    Modifier votre fait
+                </button>
+                <a href="{{ path('app_homepage') }}"
+                   id="btnRetour" class="btn btn-secondary">
+                    Revenir à la liste
+                </a>
+            </div>
+        </div>
+    </main>
+{% endblock %}

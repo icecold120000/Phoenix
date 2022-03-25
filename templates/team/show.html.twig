@@ -5,33 +5,39 @@
 {% block body %}
     <main>
         <h1>{{ team.teamName }}</h1>
+        <div>
+            <a href="{{ path('team_index') }}"
+               class="btn btn-secondary" id="btnRetour">
+                Revenir à la liste
+            </a>
+        </div>
+        <div>
+            <p>Chef d'équipe : {{ team.teamLeader.firstnameUser }} {{ team.teamLeader.lastnameUser }}</p>
 
-        <p>Chef d'équipe : {{ team.teamLeader.firstnameUser }} {{ team.teamLeader.lastnameUser }}</p>
-
-        {% if team.teamParent %}
-            <p>L'équipe parente : {{ team.teamParent.teamName }}</p>
-        {% endif %}
-
-        <p>Les équipe(s) enfants :</p>
-        <ol>
-            {% if team.teamChild %}
-                {% for child in team.teamChild %}
-                    <li>{{ child.teamName }}</li>
-                {% else %}
-                    <li>Aucune équipe enfant.</li>
-                {% endfor %}
+            {% if team.teamParent %}
+                <p>L'équipe parente : {{ team.teamParent.teamName }}</p>
             {% endif %}
-        </ol>
 
-        <h2>Membre de l'équipe :</h2>
-        <table class="table tableAdmin">
-            <thead>
+            <p>Les équipe(s) enfants :</p>
+            <ol>
+                {% if team.teamChild %}
+                    {% for child in team.teamChild %}
+                        <li>{{ child.teamName }}</li>
+                    {% else %}
+                        <li>Aucune équipe enfant.</li>
+                    {% endfor %}
+                {% endif %}
+            </ol>
+
+            <h2>Membre de l'équipe :</h2>
+            <table class="table tableAdmin">
+                <thead>
                 <tr>
                     <th>Prénom</th>
                     <th>Nom</th>
                 </tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 {% for member in team.teamMembers %}
                     <tr>
                         <td>{{ member.firstnameUser }}</td>
@@ -42,7 +48,9 @@
                         <td colspan="4" class="erreur">Aucun membre n'a été trouvé !</td>
                     </tr>
                 {% endfor %}
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
+
     </main>
 {% endblock %}

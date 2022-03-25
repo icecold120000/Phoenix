@@ -34,3 +34,19 @@ td div.rightTd {
     align-items: center;
     width: 45%;
 }
+
+table .fa-times, table .fa-check{
+    font-size: 1.5em;
+}
+
+.fa-times {
+    color: red;
+}
+
+.fa-check {
+    color: green;
+}
+
+#deleteFact {
+    display: contents;
+}

@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail d'un fact{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('project') }}
+{% endblock %}
+{% block body %}
+    <h1>{{ fact.nameFact }}</h1>
+    <div>
+        <a href="{{ path('app_homepage') }}"
+           class="btn btn-secondary" id="btnRetour">
+            Revenir à la liste
+        </a>
+    </div>
+    <div>
+        <table class="table tableAdmin">
+            <tbody>
+                <tr>
+                    <th>Date du fait</th>
+                    <td>{{ fact.dateFact ? fact.dateFact|date('d/m/Y') : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Description du fait</th>
+                    <td>{{ fact.descriptionFact }}</td>
+                </tr>
+                <tr>
+                    <th>Est validé</th>
+                    <td>{{ fact.isValidated ? '<i class="fas fa-check"></i>' :
+                        '<i class="fas fa-times"></i>' }}
+                    </td>
+                    <td>
+                        {% if fact.isValidated %}
+                            <form method="post" action="{{ path('validate_fact',{'id': fact.id}) }}" onsubmit="return confirm('Voulez-vous vraiment invalider ce fait ?');">
+                                <button class="btn btn-danger">Non validée</button>
+                            </form>
+                        {% else %}
+                            <form method="post" action="{{ path('validate_fact',{'id': fact.id}) }}" onsubmit="return confirm('Voulez-vous vraiment valider ce fait ?');">
+                                <button class="btn btn-success">Validée</button>
+                            </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Jalon concerné</th>
+                    <td>
+                        {{ fact.milestoneFact.nameMilestone }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
