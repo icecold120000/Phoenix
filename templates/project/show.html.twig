@@ -48,71 +48,211 @@
                         </div>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        Faits marquant passés :
+                    </td>
+                    <td>
+                        <ol>
+                            {% for fact in facts|filter(fact => fact.dateFact|date('m') < "now"|date('m'))%}
+                                {% if loop.index < 6 %}
+                                    <li>
+                                        <a>{{ fact.nameFact }} - {{ fact.dateFact ? fact.dateFact|date('d/m/Y h:m') : '' }}</a>
+                                        <span>
+                                            <a class="btn btn-primary">
+                                                <i class="far fa-edit"></i>
+                                            </a>
+                                            -
+                                            <a class="btn btn-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </span>
+                                    </li>
+                                {% endif %}
+                            {% else %}
+                                <li>
+                                    <span class="erreur">Aucun fait n'a été trouvé !</span>
+                                </li>
+                            {% endfor %}
+                        </ol>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Faits marquant à venir :
+                    </td>
+                    <td>
+                        <ol>
+                            {% for fact in facts|filter(fact => fact.dateFact|date('m') >= "now"|date('m'))%}
+                                {% if loop.index < 6 %}
+                                    <li>
+                                        <a>{{ fact.nameFact }} - {{ fact.dateFact ? fact.dateFact|date('d/m/Y h:m') : '' }}</a>
+                                        <span>
+                                            <a class="btn btn-primary">
+                                                <i class="far fa-edit"></i>
+                                            </a>
+                                            -
+                                            <a class="btn btn-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </span>
+                                    </li>
+                                {% endif %}
+                            {% else %}
+                                <li>
+                                    <span class="erreur">Aucun fait n'a été trouvé !</span>
+                                </li>
+                            {% endfor %}
+                        </ol>
+                        <div>
+                            <a class="btn btn-primary" href="{{ path('fact_new') }}">Ajouter un nouveau fait</a>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalFact">
+                                Afficher tous les faits
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="modalFact" tabindex="-1" aria-labelledby="modalLabelFact" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modalLabelFact">Affichage de tous les risques</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <table>
+                                                <tbody>
+                                                    {% for fact in facts %}
+                                                        <tr>
+                                                            <td>
+                                                                <a>{{ fact.nameFact }} - {{ fact.dateFact ? fact.dateFact|date('d/m/Y h:m') : '' }}</a>
+                                                            </td>
+                                                            <td>
+                                                                <a class="btn btn-primary">
+                                                                    <i class="far fa-edit"></i>
+                                                                </a>
+                                                            </td>
+                                                            <td>
+                                                                <a class="btn btn-danger">
+                                                                    <i class="fas fa-trash"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    {% else %}
+                                                        <tr>
+                                                            <td>
+                                                                <span class="erreur">Aucun fait n'a été trouvé !</span>
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Risques</td>
+                    <td>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Date d'identification</th>
+                                    <th>Date de résolution</th>
+                                    <th>Sévérité</th>
+                                    <th>Probabilité</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for risk in risks %}
+                                    {% if loop.index < 6%}
+                                        <tr>
+                                            <td>{{ risk.nameRisk }}</td>
+                                            <td>
+                                                {{ risk.identificationDateRisk ?
+                                                risk.identificationDateRisk|date('d/m/Y') : '' }}
+                                            </td>
+                                            <td>
+                                                {{ risk.resolutionDateRisk ?
+                                                risk.resolutionDateRisk|date('d/m/Y') : '' }}
+                                            </td>
+                                            <td>{{ risk.severityRisk }}</td>
+                                            <td>{{ risk.probabilityRisk }}%</td>
+                                        </tr>
+                                    {% endif %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="5" class="erreur">Aucun risque n'a été trouvé !</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <div>
+                            <a class="btn btn-primary">Ajouter un nouveau risque</a>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalRisk">
+                                Afficher tous les risques
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="modalRisk" tabindex="-1" aria-labelledby="modalLabelRisk" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modalLabelRisk">Affichage de tous les risques</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nom</th>
+                                                        <th>Date d'identification</th>
+                                                        <th>Date de résolution</th>
+                                                        <th>Sévérité</th>
+                                                        <th>Probabilité</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for risk in risks %}
+                                                        <tr>
+                                                            <td>{{ risk.nameRisk }}</td>
+                                                            <td>
+                                                                {{ risk.identificationDateRisk ?
+                                                                risk.identificationDateRisk|date('d/m/Y') : '' }}
+                                                            </td>
+                                                            <td>
+                                                                {{ risk.resolutionDateRisk ?
+                                                                risk.resolutionDateRisk|date('d/m/Y') : '' }}
+                                                            </td>
+                                                            <td>{{ risk.severityRisk }}</td>
+                                                            <td>{{ risk.probabilityRisk }}%</td>
+                                                        </tr>
+                                                    {% else %}
+                                                        <tr>
+                                                            <td colspan="5" class="erreur">Aucun risque n'a été trouvé !</td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
             </tbody>
         </table>
-        <div>
-            <div>
-                <h2>Faits Marquant :</h2>
-                <table class="table tableAdmin">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Nom</th>
-                            <th>Description</th>
-                            <th>Jalon</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for fact in facts %}
-                            <tr>
-                                <td>{{ fact.dateFact ? fact.dateFact|date('d/m/Y h:m') : '' }}</td>
-                                <td>{{ fact.nameFact }}</td>
-                                <td>{{ fact.descriptionFact }}</td>
-                                <td>{{ fact.milestoneFact.nameMilestone }}</td>
-                            </tr>
-                        {% else %}
-                            <tr>
-                                <td colspan="4" class="erreur">Aucun fait n'a été trouvé !</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <div>
-                <h2>Risques :</h2>
-                <table class="table tableAdmin">
-                    <thead>
-                        <tr>
-                            <th>Nom</th>
-                            <th>Date d’identification</th>
-                            <th>Date de résolution</th>
-                            <th>Sévérité</th>
-                            <th>Probabilité</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for risk in risks %}
-                            <tr>
-                                <td>{{ risk.nameRisk }}</td>
-                                <td>
-                                    {{ risk.identificationDateRisk ?
-                                    risk.identificationDateRisk|date('d/m/Y') : '' }}
-                                </td>
-                                <td>
-                                    {{ risk.resolutionDateRisk ?
-                                    risk.resolutionDateRisk|date('d/m/Y') : '' }}
-                                </td>
-                                <td>{{ risk.severityRisk }}</td>
-                                <td>{{ risk.probabilityRisk }}%</td>
-                            </tr>
-                        {% else %}
-                            <tr>
-                                <td colspan="5" class="erreur">Aucun risque n'a été trouvé !</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
     </main>
 {% endblock %}
