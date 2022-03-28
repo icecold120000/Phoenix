@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Project;
+use App\Form\Filter\FilterProjectType;
 use App\Form\ProjectType;
 use App\Repository\FactRepository;
 use App\Repository\ProjectRepository;
@@ -23,16 +24,35 @@ class ProjectController extends AbstractController
     public function index(ProjectRepository $projectRepository,
                           PaginatorInterface $paginator, Request $request): Response
     {
-        $projects = $projectRepository->findAll();
+        $user = $this->getUser();
+        if ($user != null and in_array("ROLE_ADMIN",$user->getRoles()) == false) {
+            $projects = array_merge($projectRepository->findByTeamClient($user->getId()),
+                $projectRepository->findByProdTeam($user->getId()));
+        }
+        else {
+            $projects = $projectRepository->findAll();
+        }
+
+        $form = $this->createForm(FilterProjectType::class);
+        $filter = $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $projects = $projectRepository->filterProject(
+                $filter->get('orderProject')->getData(),
+                $filter->get('searchProject')->getData(),
+                $filter->get('statusProject')->getData()
+            );
+        }
 
         $projects = $paginator->paginate(
             $projects,
             $request->query->getInt('page',1),
-            15
+            10
         );
 
         return $this->render('project/index.html.twig', [
             'projects' => $projects,
+            'formFilter' => $filter->createView(),
         ]);
     }
 

@@ -18,13 +18,13 @@
                 </ol>
             </div>
         </div>
-        <div id="screenLeft" class="container">
+        <div id="screenLeft" >
             <div>
                 <h2><i class="far fa-square"></i> Faits passés à vérifier</h2>
                 <ol>
                     {% for factNotConfirmed in factsNotConfirmed %}
                         <li>
-                            <a href="#">{{ factNotConfirmed.nameFact }}</a> - <a href="{{ path('app_project_show',{'project': factNotConfirmed.project.id}) }}">{{ factNotConfirmed.project.nameProject }}</a> - {{ factNotConfirmed.dateFact|date('d/m/Y') }}
+                            <a href="#">{{ factNotConfirmed.nameFact }}</a> - <a href="{{ path('app_project_show',{'projectId': factNotConfirmed.project.id}) }}">{{ factNotConfirmed.project.nameProject }}</a> - {{ factNotConfirmed.dateFact|date('d/m/Y') }}
                         </li>
                     {% else %}
                         <p class="erreur">Aucun fait n'a été trouvé !</p>
@@ -35,7 +35,7 @@
                 <h2><i class="far fa-edit"></i> Derniers projets mis à jour </h2>
                 <ol>
                     {% for updatedProject in lastUpdatedProjects %}
-                        <li><a href="{{ path('app_project_show',{'project': updatedProject.id}) }}">{{ updatedProject.nameProject }}</a> - {{ updatedProject.updatedAt|date('d/m/Y') }}</li>
+                        <li><a href="{{ path('app_project_show',{'projectId': updatedProject.id}) }}">{{ updatedProject.nameProject }}</a> - {{ updatedProject.updatedAt|date('d/m/Y') }}</li>
                     {% else %}
                         <p class="erreur">Aucun projet n'a été trouvé !</p>
                     {% endfor %}
@@ -43,7 +43,7 @@
                 <a href="{{ path('app_homepage') }}">Afficher tous les projets</a>
             </div>
         </div>
-        <div id="screenRight" class="container">
+        <div id="screenRight">
             <div>
                 <h2><i class="fas fa-stream"></i> Mes projets</h2>
                 <ol>

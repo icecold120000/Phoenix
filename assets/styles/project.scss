@@ -3,6 +3,12 @@ body {
 }
 
 /* Dashboard */
+main#dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: unset;
+}
+
 #dashboard ol {
     display: flex;
     flex-direction: column;

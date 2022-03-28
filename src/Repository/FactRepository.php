@@ -36,7 +36,7 @@ class FactRepository extends ServiceEntityRepository
     /**
      * @return Fact[] Returns an array of Fact objects
      */
-    public function findAllNonVerified($validated = false): array
+    public function findAllVerified($validated = false): array
     {
         return $this->createQueryBuilder('f')
             ->andWhere('f.isValidated = :validate')

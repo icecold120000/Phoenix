@@ -79,10 +79,16 @@ class StatusController extends AbstractController
      */
     public function edit(Request $request, Status $status, EntityManagerInterface $entityManager): Response
     {
+        $oldColor = $status->getColorStatus();
         $form = $this->createForm(StatusType::class, $status);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            if ($form->get('colorStatus')->getData() == "#000000") {
+                $status->setColorStatus($oldColor);
+            }
+
             $entityManager->flush();
             $this->addFlash(
                 'SuccessStatus',

@@ -19,6 +19,40 @@ class ProjectRepository extends ServiceEntityRepository
         parent::__construct($registry, Project::class);
     }
 
+
+    /**
+     * @return Project[] Returns an array of Project objects
+     */
+    public function filterProject($orderProject = "DESC",
+                                  $searchProject = null, $statusProject = null): array
+    {
+        $query = $this->createQueryBuilder('p');
+
+        if ($searchProject != null) {
+            $query
+                ->leftJoin('p.productionTeam','pt')
+                ->leftJoin('p.teamClient','tc')
+                ->andWhere('p.nameProject Like :search or p.codeProject like :search
+                 or pt.teamName like :search or tc.teamName like :search')
+                ->setParameter('search', $searchProject)
+            ;
+        }
+
+        if ($statusProject != null) {
+            $query
+                ->leftJoin('p.status','ps')
+                ->andWhere('ps.id = :status')
+                ->setParameter('status', $statusProject)
+            ;
+        }
+
+
+        $query->orderBy('p.startedAt', $orderProject);
+
+        return $query->getQuery()->getResult();
+    }
+
+
     /**
      * @return Project[] Returns an array of Project objects
      * @throws \Exception
@@ -28,7 +62,7 @@ class ProjectRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
             ->andWhere('p.updatedAt < :date')
             ->setParameter('date', new \DateTime('now',new \DateTimeZone('Europe/Paris')))
-            ->orderBy('p.id', 'DESC')
+            ->orderBy('p.startedAt', 'DESC')
             ->setMaxResults(5)
             ->getQuery()
             ->getResult()
@@ -46,7 +80,7 @@ class ProjectRepository extends ServiceEntityRepository
             ->leftJoin('pt.teamLeader','tl')
             ->andWhere('tm.id = :user or tl.id = :user')
             ->setParameter('user', $userId)
-            ->orderBy('p.id', 'DESC')
+            ->orderBy('p.startedAt', 'DESC')
             ->getQuery()
             ->getResult()
             ;
@@ -63,7 +97,7 @@ class ProjectRepository extends ServiceEntityRepository
             ->leftJoin('tc.teamLeader','tl')
             ->andWhere('tm.id = :user or tl.id = :user')
             ->setParameter('user', $userId)
-            ->orderBy('p.id', 'DESC')
+            ->orderBy('p.startedAt', 'DESC')
             ->getQuery()
             ->getResult()
             ;
@@ -79,7 +113,6 @@ class ProjectRepository extends ServiceEntityRepository
             ->leftJoin('p.status','s')
             ->andWhere('s.id = :status')
             ->setParameter('status', $statusId)
-            ->orderBy('p.id', 'DESC')
             ->getQuery()
             ->getResult()
             ;

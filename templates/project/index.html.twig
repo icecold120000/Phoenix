@@ -14,6 +14,33 @@
                 <button class="btn btn-info">Ajouter un nouveau projet</button>
             </a>
             <div>
+                <div >
+                    {{form_start(formFilter)}}
+                    <div>
+                        <div class="selectFiltre">
+                            <span>{{ form_label(formFilter.orderProject)}}</span>
+                            {{form_widget(formFilter.orderProject)}}
+                        </div>
+                        <div class="selectFiltre">
+                            <span>{{form_label(formFilter.statusProject)}}</span>
+                            {{form_widget(formFilter.statusProject)}}
+                        </div>
+                    </div>
+                    <div>
+                        <div class="selectFiltre">
+                            <span>{{form_label(formFilter.searchProject)}}</span>
+                            {{form_widget(formFilter.searchProject)}}
+                        </div>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-info" >
+                            Afficher
+                        </button>
+                    </div>
+                    {{form_end(formFilter)}}
+                </div>
+            </div>
+            <div>
                 {{ knp_pagination_render(projects) }}
             </div>
             {% if not is_granted('ROLE_ADMIN') %}
@@ -34,36 +61,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for project in app.user.team.teamProjects %}
-                            <tr>
-                                <td>{{ project.codeProject }}</td>
-                                <td>{{ project.nameProject }}</td>
-                                <td style="background-color: {{ project.status.colorStatus }}"></td>
-                                <td>{{ project.productionTeam.teamName }}</td>
-                                <td>{{ project.teamClient.teamName }}</td>
-                                <td>{{ project.startedAt ? project.startedAt|date('d/m/Y') : '' }}</td>
-                                <td>{{ project.endedAt ? project.endedAt|date('d/m/Y') : '' }}</td>
-                                <td>
-                                    <a href="{{ path('app_project_show',{'projectId': project.id}) }}"
-                                       class="btn btn-info">
-                                        Lien
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="{{ path('app_project_edit',
-                                        {'id': project.id}) }}" class="btn btn-primary">
-                                        <i class="far fa-edit"></i>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="{{ path('app_project_delete_view', {'id': project.id}) }}"
-                                       class="btn btn-danger">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                        {% for project in app.user.team.clientProjects %}
+                        {% for project in projects %}
                             <tr>
                                 <td>{{ project.codeProject }}</td>
                                 <td>{{ project.nameProject }}</td>
@@ -108,7 +106,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for project in app.user.team.teamProjects %}
+                        {% for project in projects %}
                             {% for risk in project.projectRisks %}
                                 <tr>
                                     <td>{{ project.codeProject }}</td>
