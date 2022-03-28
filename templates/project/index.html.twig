@@ -89,6 +89,10 @@
                                     </a>
                                 </td>
                             </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="10" class="erreur">Aucun projet trouvé !</td>
+                            </tr>
                         {% endfor %}
                     </tbody>
                 </table>
@@ -131,6 +135,10 @@
                                             <i class="fas fa-trash"></i>
                                         </a>
                                     </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="10" class="erreur">Aucun projet trouvé !</td>
                                 </tr>
                             {% endfor %}
                         {% endfor %}

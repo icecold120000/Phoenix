@@ -25,23 +25,33 @@ class ProjectController extends AbstractController
                           PaginatorInterface $paginator, Request $request): Response
     {
         $user = $this->getUser();
-        if ($user != null and in_array("ROLE_ADMIN",$user->getRoles()) == false) {
+        if ($user != null && in_array("ROLE_ADMIN", $user->getRoles()) == false) {
             $projects = array_merge($projectRepository->findByTeamClient($user->getId()),
                 $projectRepository->findByProdTeam($user->getId()));
-        }
-        else {
+        } else {
             $projects = $projectRepository->findAll();
         }
 
         $form = $this->createForm(FilterProjectType::class);
         $filter = $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $projects = $projectRepository->filterProject(
-                $filter->get('orderProject')->getData(),
-                $filter->get('searchProject')->getData(),
-                $filter->get('statusProject')->getData()
-            );
+        if ($form->isSubmitted() && $form->isValid()){
+            if (in_array("ROLE_ADMIN", $user->getRoles()) == true) {
+                $projects = $projectRepository->filterProject(
+                    $filter->get('orderProject')->getData(),
+                    $filter->get('searchProject')->getData(),
+                    $filter->get('statusProject')->getData()
+                );
+            }
+            else {
+                $projects = $projectRepository->filterProject(
+                    $filter->get('orderProject')->getData(),
+                    $filter->get('searchProject')->getData(),
+                    $filter->get('statusProject')->getData(),
+                    $user->getId()
+                );
+            }
+
         }
 
         $projects = $paginator->paginate(

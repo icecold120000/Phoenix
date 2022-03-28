@@ -23,8 +23,8 @@ class DashboardController extends AbstractController
         $user = $this->getUser();
         $projects = array_merge($projectRepo->findByTeamClient($user->getId()),$projectRepo->findByProdTeam($user->getId()));
         return $this->render('dashboard/index.html.twig', [
-            'milestonesObtained' => $factRepo->findAllNonVerified(true),
-            'factsNotConfirmed' => $factRepo->findAllNonVerified(),
+            'milestonesObtained' => $factRepo->findAllVerified(true),
+            'factsNotConfirmed' => $factRepo->findAllVerified(),
             'lastUpdatedProjects' => $projectRepo->findLastUpdatedProjects(),
             'myProjects' => $projects,
             'statuses' => $statusRepo->findAll()

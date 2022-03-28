@@ -24,7 +24,9 @@ class ProjectRepository extends ServiceEntityRepository
      * @return Project[] Returns an array of Project objects
      */
     public function filterProject($orderProject = "DESC",
-                                  $searchProject = null, $statusProject = null): array
+                                  $searchProject = null,
+                                  $statusProject = null,
+                                  $userId = null): array
     {
         $query = $this->createQueryBuilder('p');
 
@@ -45,7 +47,18 @@ class ProjectRepository extends ServiceEntityRepository
                 ->setParameter('status', $statusProject)
             ;
         }
-
+        if ($userId != null) {
+            $query
+                ->leftJoin('p.productionTeam','pt')
+                ->leftJoin('pt.teamMembers','pm')
+                ->leftJoin('pt.teamLeader','pl')
+                ->leftJoin('p.teamClient','tc')
+                ->leftJoin('tc.teamMembers','cm')
+                ->leftJoin('tc.teamLeader','cl')
+                ->andWhere('pm.id = :user or pl.id = :user or cl.id = :user or cl.id = :user')
+                ->setParameter('user', $userId)
+            ;
+        }
 
         $query->orderBy('p.startedAt', $orderProject);
 
