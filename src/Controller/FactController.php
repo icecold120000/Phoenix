@@ -29,6 +29,8 @@ class FactController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $fact->setProject($project);
+            $project->setUpdatedAt(new \DateTime('now',new \DateTimeZone('Europe/Paris')));
+            $entityManager->persist($project);
             $entityManager->persist($fact);
             $entityManager->flush();
             $this->addFlash(
@@ -81,6 +83,8 @@ class FactController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $project->setUpdatedAt(new \DateTime('now',new \DateTimeZone('Europe/Paris')));
+            $entityManager->persist($project);
             $entityManager->flush();
             $this->addFlash(
                 'SuccessFact',
@@ -108,6 +112,8 @@ class FactController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$fact->getId(),
             $request->request->get('_token'))) {
             $entityManager->remove($fact);
+            $project->setUpdatedAt(new \DateTime('now',new \DateTimeZone('Europe/Paris')));
+            $entityManager->persist($project);
             $entityManager->flush();
             $this->addFlash(
                 'SuccessDeleteFact',

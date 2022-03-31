@@ -8,8 +8,17 @@
 {% block body %}
     <main>
         <h1 class="my-project">{{ project.nameProject }}</h1>
-        <span>Mise à jour le {{ project.startedAt ? project.startedAt|date('d/m/Y à H:i') : '' }}</span>
-
+        <span>Mise à jour le {{ project.startedAt ? project.updatedAt|date('d/m/Y à H:i') : '' }}</span>
+        {% for message in app.flashes('SuccessDeleteFact') %}
+            <div class="erreur">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('SuccessDeleteRisk') %}
+            <div class="erreur">
+                {{ message }}
+            </div>
+        {% endfor %}
         <table class="tableAdmin">
             <tbody>
                 <tr>
@@ -49,11 +58,6 @@
                         Faits marquant passés :
                     </td>
                     <td>
-                        {% for message in app.flashes('SuccessDeleteFact') %}
-                            <div class="erreur">
-                                {{ message }}
-                            </div>
-                        {% endfor %}
                         <ol>
                             {% for fact in facts|filter(fact => fact.dateFact|date('m') < "now"|date('m'))%}
                                 {% if loop.index < 6 %}
@@ -155,11 +159,6 @@
                 <tr>
                     <td>Risques</td>
                     <td>
-                        {% for message in app.flashes('SuccessDeleteRisk') %}
-                            <div class="erreur">
-                                {{ message }}
-                            </div>
-                        {% endfor %}
                         <table>
                             <thead>
                                 <tr>

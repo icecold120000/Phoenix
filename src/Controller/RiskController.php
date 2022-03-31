@@ -29,6 +29,8 @@ class RiskController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $risk->setProject($project);
+            $project->setUpdatedAt(new \DateTime('now',new \DateTimeZone('Europe/Paris')));
+            $entityManager->persist($project);
             $entityManager->persist($risk);
             $entityManager->flush();
             $this->addFlash(
@@ -57,6 +59,8 @@ class RiskController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $project->setUpdatedAt(new \DateTime('now',new \DateTimeZone('Europe/Paris')));
+            $entityManager->persist($project);
             $entityManager->flush();
             $this->addFlash(
                 'SuccessRisk',
@@ -72,7 +76,7 @@ class RiskController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'risk_delete', methods: ['POST'])]
+    #[Route('/{projectId}/{id}', name: 'risk_delete', methods: ['POST'])]
     /**
      * @Entity("project", expr="repository.find(projectId)")
      */
@@ -82,6 +86,8 @@ class RiskController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$risk->getId(), $request->request->get('_token'))) {
             $entityManager->remove($risk);
+            $project->setUpdatedAt(new \DateTime('now',new \DateTimeZone('Europe/Paris')));
+            $entityManager->persist($project);
             $entityManager->flush();
             $this->addFlash(
                 'SuccessDeleteRisk',
