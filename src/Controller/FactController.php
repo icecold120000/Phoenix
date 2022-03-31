@@ -97,14 +97,24 @@ class FactController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'fact_delete', methods: ['POST'])]
-    public function delete(Request $request, Fact $fact, EntityManagerInterface $entityManager): Response
+    #[Route('/{projectId}/{id}', name: 'fact_delete', methods: ['POST'])]
+    /**
+     * @Entity("project", expr="repository.find(projectId)")
+     */
+    public function delete(Request $request, Fact $fact,
+                           EntityManagerInterface $entityManager,
+                           Project $project): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$fact->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$fact->getId(),
+            $request->request->get('_token'))) {
             $entityManager->remove($fact);
             $entityManager->flush();
+            $this->addFlash(
+                'SuccessDeleteFact',
+                'Votre fait a été supprimé !'
+            );
         }
 
-        return $this->redirectToRoute('homepage', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_project_show', ['projectId' => $project->getId()], Response::HTTP_SEE_OTHER);
     }
 }

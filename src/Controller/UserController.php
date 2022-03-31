@@ -25,11 +25,9 @@ class UserController extends AbstractController
     public function index(UserRepository $userRepository, Request $request,
                           PaginatorInterface $paginator): Response
     {
-
         $users = $userRepository->findAll();
 
         $form = $this->createForm(UserFilterType::class);
-
         $search = $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -104,7 +102,6 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             if ($form->get('password')->getData() != null){
                 $user->setPassword(
                     $userPasswordHasher->hashPassword(
@@ -130,7 +127,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/delete_view", name="user_delete_view", methods={"GET"})
+     * @Route("/{id}/delete_view", name="user_delete_view", methods={"GET","POST"})
      */
     public function delete_view(User $user): Response
     {
@@ -147,6 +144,10 @@ class UserController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $entityManager->remove($user);
             $entityManager->flush();
+            $this->addFlash(
+                'SuccessDeleteUser',
+                'Votre fait a été supprimé !'
+            );
         }
 
         return $this->redirectToRoute('user_index', [], Response::HTTP_SEE_OTHER);

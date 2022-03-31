@@ -73,13 +73,22 @@ class RiskController extends AbstractController
     }
 
     #[Route('/{id}', name: 'risk_delete', methods: ['POST'])]
-    public function delete(Request $request, Risk $risk, EntityManagerInterface $entityManager): Response
+    /**
+     * @Entity("project", expr="repository.find(projectId)")
+     */
+    public function delete(Request $request, Risk $risk,
+                           EntityManagerInterface $entityManager,
+                           Project $project): Response
     {
         if ($this->isCsrfTokenValid('delete'.$risk->getId(), $request->request->get('_token'))) {
             $entityManager->remove($risk);
             $entityManager->flush();
+            $this->addFlash(
+                'SuccessDeleteRisk',
+                'Votre risque a été supprimé !'
+            );
         }
 
-        return $this->redirectToRoute('risk_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_project_show', ['projectId' => $project->getId()], Response::HTTP_SEE_OTHER);
     }
 }

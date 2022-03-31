@@ -4,6 +4,11 @@
 
 {% block body %}
     <h1>Liste de statut</h1>
+    {% for message in app.flashes('SuccessDeleteStatus') %}
+        <div class="erreur">
+            {{ message }}
+        </div>
+    {% endfor %}
     <a href="{{ path('status_new') }}">
         <button class="btn btn-info">Ajouter un nouveau statut</button>
     </a>

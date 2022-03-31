@@ -120,14 +120,13 @@ class StatusController extends AbstractController
      */
     public function delete(Request $request, Status $status, EntityManagerInterface $entityManager, ProjectRepository $projectRepo): Response
     {
-
         $projects = $projectRepo->findByStatus($status->getId());
 
         if ($projects != null) {
             $this->addFlash(
                 'FailedDeleteStatus',
-                'Erreur votre status est encore utilisé dans un ou plusieurs projet.
-                Veuillez modifier les projets ci-dessous leur statut !'
+                'Erreur votre status est encore utilisé dans un ou plusieurs projet(s).
+                Veuillez modifier le(s) projet(s) ci-dessous leur statut !'
             );
             return $this->redirectToRoute('status_delete_view',['id' => $status->getId()]);
         }
@@ -135,6 +134,10 @@ class StatusController extends AbstractController
             if ($this->isCsrfTokenValid('delete'.$status->getId(), $request->request->get('_token'))) {
                 $entityManager->remove($status);
                 $entityManager->flush();
+                $this->addFlash(
+                    'SuccessDeleteStatus',
+                    'Votre statut a été supprimé !'
+                );
             }
             return $this->redirectToRoute('status_index', [], Response::HTTP_SEE_OTHER);
         }

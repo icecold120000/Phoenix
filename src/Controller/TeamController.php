@@ -106,6 +106,10 @@ class TeamController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$team->getId(), $request->request->get('_token'))) {
             $entityManager->remove($team);
             $entityManager->flush();
+            $this->addFlash(
+                'SuccessDeleteTeam',
+                'Votre équipe a été supprimée !'
+            );
         }
 
         return $this->redirectToRoute('team_index', [], Response::HTTP_SEE_OTHER);

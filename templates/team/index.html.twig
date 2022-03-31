@@ -4,6 +4,11 @@
 
 {% block body %}
     <h1>Liste des équipes</h1>
+    {% for message in app.flashes('SuccessDeleteTeam') %}
+        <div class="erreur">
+            {{ message }}
+        </div>
+    {% endfor %}
     <div>
         <a href="{{ path('team_new') }}"
            class="btn btn-primary" id="btnAjout">

@@ -71,13 +71,11 @@ class ProjectController extends AbstractController
      */
     public function new(EntityManagerInterface $entityManager, Request $request): Response
     {
-
         $project = new Project();
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $project
                 ->setCreatedAt(new \DateTime('now'))
                 ->setUpdatedAt(new \DateTime('now'))
@@ -103,7 +101,8 @@ class ProjectController extends AbstractController
      * @Route("/project/{id}/edit", name="app_project_edit", methods={"GET", "POST"})
      */
     public function edit(EntityManagerInterface $entityManager,
-                         Request $request, Project $project) {
+                         Request $request, Project $project): Response
+    {
         $form = $this->createForm(ProjectType::class,$project);
         $form->handleRequest($request);
 
@@ -151,16 +150,20 @@ class ProjectController extends AbstractController
         ]);
     }
     /**
-     * @Route("/project/{id}", name="project_delete", methods={"POST"})
+     * @Route("/project/{id}", name="app_project_delete", methods={"POST"})
      */
     public function delete(Request $request, Project $project, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$project->getId(), $request->request->get('_token'))) {
             $entityManager->remove($project);
             $entityManager->flush();
+            $this->addFlash(
+                'SuccessDeleteProject',
+                'Votre projet a été supprimé !'
+            );
         }
 
-        return $this->redirectToRoute('team_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_homepage', [], Response::HTTP_SEE_OTHER);
     }
 
 }

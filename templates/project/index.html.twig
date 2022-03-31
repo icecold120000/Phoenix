@@ -3,13 +3,17 @@
 {% block title %}Liste des projets{% endblock %}
 
 {% block body %}
-
     {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-        <div class="example-wrapper">
+        <main>
             <h1>Mes Projets : {{ projects|length }} </h1>
             <h2>
                 Bonjour {{ app.user.firstnameUser }} {{ app.user.lastnameUser }}
             </h2>
+            {% for message in app.flashes('SuccessDeleteProject') %}
+                <div class="erreur">
+                    {{ message }}
+                </div>
+            {% endfor %}
             <a href="{{ path('app_project_new') }}">
                 <button class="btn btn-info">Ajouter un nouveau projet</button>
             </a>
@@ -196,7 +200,7 @@
             <div>
                 {{ knp_pagination_render(projects) }}
             </div>
-        </div>
+        </main>
     {% else %}
         <h1>Bienvenue, Veuillez vous connecter pour accéder aux fonctionnalités proposées par le site</h1>
         <a href="{{ path('app_login') }}" class="btn btn-info">Se connecter</a>

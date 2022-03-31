@@ -5,6 +5,11 @@
 {% block body %}
     <main id="userIndex">
         <h1>Liste des utilisateurs</h1>
+        {% for message in app.flashes('SuccessDeleteUser') %}
+            <div class="erreur">
+                {{ message }}
+            </div>
+        {% endfor %}
         <div>
             <a href="{{ path('user_new') }}"
              class="btn btn-primary" id="btnAjout">
