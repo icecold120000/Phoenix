@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un nouveau budget{% endblock %}
+
+{% block body %}
+    <main>
+        <h1>Ajouter un nouveau budget</h1>
+
+        {% for message in app.flashes('SuccessBudget') %}
+            <div class="flash-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <div>
+            <div class="container-fluid formEntité2" id="formTeam">
+                {{ include('budget/_form.html.twig') }}
+            </div>
+        </div>
+        <div class="row">
+            <div id="divAjout">
+                <button type="submit" class="btn btn-success" form="budgetForm">
+                    Ajouter votre budget
+                </button>
+                <a href="{{ path('app_homepage') }}"
+                   id="btnRetour" class="btn btn-secondary">
+                    Revenir à la liste
+                </a>
+            </div>
+        </div>
+    </main>
+{% endblock %}

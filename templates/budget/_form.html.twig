@@ -1,0 +1,33 @@
+{{ form_start(form) }}
+    <div id="screenLeft">
+        {{form_label(form.initialBudget)}}
+        <div class="divInput">
+            {{form_widget(form.initialBudget)}}
+        </div>
+        {% if form_errors(form.initialBudget) %}
+            <div class="erreur">
+                {{form_errors(form.initialBudget)}}
+            </div>
+        {% endif %}
+        {{form_label(form.budgetUsed)}}
+        <div class="divInput">
+            {{form_widget(form.budgetUsed)}}
+        </div>
+        {% if form_errors(form.budgetUsed) %}
+            <div class="erreur">
+                {{form_errors(form.budgetUsed)}}
+            </div>
+        {% endif %}
+    </div>
+    <div id="screenRight">
+        {{form_label(form.quantityLeftBudget)}}
+        <div class="divInput">
+            {{form_widget(form.quantityLeftBudget)}}
+        </div>
+        {% if form_errors(form.quantityLeftBudget) %}
+            <div class="erreur">
+                {{form_errors(form.quantityLeftBudget)}}
+            </div>
+        {% endif %}
+    </div>
+{{ form_end(form) }}
