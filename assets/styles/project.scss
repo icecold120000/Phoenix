@@ -60,3 +60,14 @@ table .fa-times, table .fa-check{
 .divAdd {
     margin: 1.5em 0;
 }
+
+/*Détail d'un fait*/
+
+#factVerified {
+    display: flex;
+    justify-content: center;
+}
+
+#factVerified .btn {
+    margin: 0 1rem;
+}

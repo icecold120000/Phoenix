@@ -58,26 +58,46 @@
                         Faits marquant passés :
                     </td>
                     <td>
-                        <ol>
-                            {% for fact in facts|filter(fact => fact.dateFact|date('m') < "now"|date('m'))%}
-                                {% if loop.index < 6 %}
-                                    <li>
-                                        <a href="{{ path('app_fact_show',{'id': fact.id}) }}">{{ fact.nameFact }} - {{ fact.dateFact ? fact.dateFact|date('d/m/Y h:m') : '' }}</a>
-                                        <span>
-                                            <a class="btn btn-primary" href="{{ path('app_fact_edit',{'id': fact.id, 'projectId' : project.id}) }}">
-                                                <i class="far fa-edit"></i>
-                                            </a>
-                                            -
-                                            {{ include('fact/_delete_form.html.twig') }}
-                                        </span>
-                                    </li>
-                                {% endif %}
-                            {% else %}
-                                <li>
-                                    <span class="erreur">Aucun fait n'a été trouvé !</span>
-                                </li>
-                            {% endfor %}
-                        </ol>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td>Vérifié</td>
+                                    <td>Nom et date</td>
+                                    <td>Détail</td>
+                                    <td>Modifier</td>
+                                    <td>Supprimer</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for fact in facts|filter(fact => fact.dateFact|date('m') < "now"|date('m'))%}
+                                    {% if loop.index < 6 %}
+                                        <tr>
+                                            <td>{{ fact.isValidated ? '<i class="fas fa-check"></i>' :
+                                                '<i class="fas fa-times"></i>' }}
+                                            </td>
+                                            <td>{{ fact.nameFact }} - {{ fact.dateFact ? fact.dateFact|date('d/m/Y h:m') : '' }}</td>
+                                            <td>
+                                                <a href="{{ path('app_fact_show',{'id': fact.id}) }}" class="btn btn-info">Détail</a>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-primary" href="{{ path('app_fact_edit',{'id': fact.id, 'projectId' : project.id}) }}">
+                                                    <i class="far fa-edit"></i>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                {{ include('fact/_delete_form.html.twig') }}
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="5">
+                                            <span class="erreur">Aucun fait n'a été trouvé !</span>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                     </td>
                 </tr>
                 <tr>
@@ -85,26 +105,48 @@
                         Faits marquant à venir :
                     </td>
                     <td>
-                        <ol>
-                            {% for fact in facts|filter(fact => fact.dateFact|date('m') >= "now"|date('m'))%}
-                                {% if loop.index < 6 %}
-                                    <li>
-                                        <a href="{{ path('app_fact_show',{'id': fact.id}) }}">{{ fact.nameFact }} - {{ fact.dateFact ? fact.dateFact|date('d/m/Y h:m') : '' }}</a>
-                                        <span>
-                                            <a class="btn btn-primary" href="{{ path('app_fact_edit',{'id': fact.id, 'projectId' : project.id}) }}">
-                                                <i class="far fa-edit"></i>
-                                            </a>
-                                            -
-                                            {{ include('fact/_delete_form.html.twig') }}
-                                        </span>
-                                    </li>
-                                {% endif %}
-                            {% else %}
-                                <li>
-                                    <span class="erreur">Aucun fait n'a été trouvé !</span>
-                                </li>
-                            {% endfor %}
-                        </ol>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td>Vérifié</td>
+                                    <td>Nom et date</td>
+                                    <td>Détail</td>
+                                    <td>Modifier</td>
+                                    <td>Supprimer</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for fact in facts|filter(fact => fact.dateFact|date('m') >= "now"|date('m'))%}
+                                    {% if loop.index < 6 %}
+                                        <tr>
+                                            <td>{{ fact.isValidated ? '<i class="fas fa-check"></i>' :
+                                                '<i class="fas fa-times"></i>' }}
+                                            </td>
+                                            <td>
+                                                {{ fact.nameFact }} - {{ fact.dateFact ? fact.dateFact|date('d/m/Y h:m') : '' }}
+                                            </td>
+                                            <td>
+                                                <a href="{{ path('app_fact_show',{'id': fact.id}) }}" class="btn btn-info">Détail</a>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-primary" href="{{ path('app_fact_edit',{'id': fact.id, 'projectId' : project.id}) }}">
+                                                    <i class="far fa-edit"></i>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                {{ include('fact/_delete_form.html.twig') }}
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="5">
+                                            <span class="erreur">Aucun fait n'a été trouvé !</span>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
                         <div class="divAdd">
                             <a class="btn btn-primary" href="{{ path('app_fact_new',{id: project.id}) }}">Ajouter un nouveau fait</a>
                             <!-- Button trigger modal -->
@@ -117,7 +159,7 @@
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="modalLabelFact">Affichage de tous les risques</h5>
+                                            <h5 class="modal-title" id="modalLabelFact">Affichage de tous les faits</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
@@ -125,8 +167,14 @@
                                                 <tbody>
                                                     {% for fact in facts %}
                                                         <tr>
+                                                            <td>{{ fact.isValidated ? '<i class="fas fa-check"></i>' :
+                                                                '<i class="fas fa-times"></i>' }}
+                                                            </td>
                                                             <td>
-                                                                <a href="{{ path('app_fact_show',{'id': fact.id}) }}">{{ fact.nameFact }} - {{ fact.dateFact ? fact.dateFact|date('d/m/Y h:m') : '' }}</a>
+                                                                {{ fact.nameFact }} - {{ fact.dateFact ? fact.dateFact|date('d/m/Y h:m') : '' }}
+                                                            </td>
+                                                            <td>
+                                                                <a href="{{ path('app_fact_show',{'id': fact.id}) }}" class="btn btn-info">Détail</a>
                                                             </td>
                                                             <td>
                                                                 <a class="btn btn-primary" href="{{ path('app_fact_edit',{'id': fact.id, 'projectId' : project.id}) }}">
@@ -139,7 +187,7 @@
                                                         </tr>
                                                     {% else %}
                                                         <tr>
-                                                            <td>
+                                                            <td colspan="5">
                                                                 <span class="erreur">Aucun fait n'a été trouvé !</span>
                                                             </td>
                                                         </tr>

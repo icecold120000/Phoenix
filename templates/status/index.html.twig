@@ -9,9 +9,16 @@
             {{ message }}
         </div>
     {% endfor %}
-    <a href="{{ path('app_status_new') }}">
-        <button class="btn btn-info">Ajouter un nouveau statut</button>
-    </a>
+    <div>
+        <a href="{{ path('app_status_new') }}"
+           class="btn btn-primary" id="btnAjout">
+            Ajouter un nouveau statut
+        </a>
+        <a href="{{ path('app_admin') }}"
+           class="btn btn-secondary" id="btnRetour">
+            Retourner à la liste des fonctionnalités
+        </a>
+    </div>
     <div>
         {{ form_start(filterStatus) }}
             <div>
