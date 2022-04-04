@@ -35,9 +35,42 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
-
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/budget, roles: IS_AUTHENTICATED_FULLY}
+        - { path: ^/budget/new, roles: IS_AUTHENTICATED_FULLY}
+        - { path: ^/budget/edit, roles: IS_AUTHENTICATED_FULLY}
+        - { path: ^/budget/delete, roles: IS_AUTHENTICATED_FULLY}
+        - { path: ^/dashboard, roles: IS_AUTHENTICATED_FULLY}
+        - { path: ^/fact, roles: IS_AUTHENTICATED_FULLY}
+        - { path: ^/fact/new, roles: IS_AUTHENTICATED_FULLY}
+        - { path: ^/fact/edit, roles: IS_AUTHENTICATED_FULLY}
+        - { path: ^/fact/show, roles: IS_AUTHENTICATED_FULLY}
+        - { path: ^/fact/validate, roles: IS_AUTHENTICATED_FULLY}
+        - { path: ^/porfolio, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/portfolio/new, roles: ROLE_ADMIN }
+        - { path: ^/portfolio/edit, roles: ROLE_ADMIN }
+        - { path: ^/portfolio/show, roles: ROLE_ADMIN }
+        - { path: ^/project, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/project/new, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/project/edit, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/project/show, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/project/delete_view, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/risk, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/risk/new, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/risk/edit, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/status, roles: ROLE_ADMIN }
+        - { path: ^/status/new, roles: ROLE_ADMIN }
+        - { path: ^/status/edit, roles: ROLE_ADMIN }
+        - { path: ^/status/delete_view, roles: ROLE_ADMIN }
+        - { path: ^/team, roles: ROLE_ADMIN }
+        - { path: ^/team/new, roles: ROLE_ADMIN }
+        - { path: ^/team/edit, roles: ROLE_ADMIN }
+        - { path: ^/team/edit, roles: ROLE_ADMIN }
+        - { path: ^/team/delete_view, roles: ROLE_ADMIN }
+        - { path: ^/user, roles: ROLE_ADMIN }
+        - { path: ^/user/new, roles: ROLE_ADMIN }
+        - { path: ^/user/edit, roles: ROLE_ADMIN }
+        - { path: ^/user/delete_view, roles: ROLE_ADMIN }
 when@test:
     security:
         password_hashers:
