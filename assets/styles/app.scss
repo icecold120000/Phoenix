@@ -121,3 +121,44 @@ ul.pagination{
 #formRegister div#divAjout {
     margin: 1rem 0;
 }
+
+/*Filtre*/
+
+#filtre{
+    display: flex;
+    justify-content: center
+}
+
+#filtre form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+#filtre span{
+    font-size: 20px;
+}
+
+#filtre select, #filtre input{
+    height: 30px;
+    font-size: 15px;
+}
+
+#filtre button{
+    padding: 5px 10px;
+    font-size: 15px;
+}
+
+#filtre div{
+    margin: 0 10px 0 0;
+    float: left;
+}
+
+#filtre #left p{
+    font-size: 30px;
+    margin: 8px 0 0 0;
+}
+
+#submitFiltre {
+    margin-left: 20px;
+}

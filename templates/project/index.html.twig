@@ -18,20 +18,20 @@
                 <button class="btn btn-info">Ajouter un nouveau projet</button>
             </a>
             <div>
-                <div >
+                <div id="filtre">
                     {{form_start(formFilter)}}
                     <div>
-                        <div class="selectFiltre">
+                        <div>
                             <span>{{ form_label(formFilter.orderProject)}}</span>
                             {{form_widget(formFilter.orderProject)}}
                         </div>
-                        <div class="selectFiltre">
+                        <div>
                             <span>{{form_label(formFilter.statusProject)}}</span>
                             {{form_widget(formFilter.statusProject)}}
                         </div>
                     </div>
                     <div>
-                        <div class="selectFiltre">
+                        <div>
                             <span>{{form_label(formFilter.searchProject)}}</span>
                             {{form_widget(formFilter.searchProject)}}
                         </div>
