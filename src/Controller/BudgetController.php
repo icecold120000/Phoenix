@@ -60,7 +60,8 @@ class BudgetController extends AbstractController
                 'Votre budget a été modifié !'
             );
 
-            return $this->redirectToRoute('app_budget_edit', ['id' => $budget->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_budget_edit', ['id' => $budget->getId(),
+                'projectId' => $project->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('budget/edit.html.twig', [
@@ -113,9 +114,10 @@ class BudgetController extends AbstractController
                 ;
 
             }
-            return $this->redirectToRoute('app_project_show', ['projectId' => $project->getId()], Response::HTTP_SEE_OTHER);
 
         }
+
+        return $this->redirectToRoute('app_project_show', ['projectId' => $project->getId()], Response::HTTP_SEE_OTHER);
 
     }
 }

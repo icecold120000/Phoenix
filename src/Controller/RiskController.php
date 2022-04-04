@@ -66,7 +66,8 @@ class RiskController extends AbstractController
                 'SuccessRisk',
                 'Votre risque a été modifié !'
             );
-            return $this->redirectToRoute('app_risk_index', ['id' => $risk->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_risk_index', ['id' => $risk->getId(),
+                'projectId' => $project->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('risk/edit.html.twig', [

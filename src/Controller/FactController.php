@@ -38,7 +38,8 @@ class FactController extends AbstractController
                 'Votre fait a été ajouté !'
             );
 
-            return $this->redirectToRoute('app_fact_new', ['id' => $project->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_fact_new', ['id' => $project->getId()],
+                Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('fact/new.html.twig', [
@@ -67,7 +68,8 @@ class FactController extends AbstractController
         $entityManager->persist($fact);
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_fact_show', ['id' => $fact->getId()], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_fact_show', ['id' => $fact->getId()],
+            Response::HTTP_SEE_OTHER);
 
     }
 
@@ -91,7 +93,8 @@ class FactController extends AbstractController
                 'Votre fait a été modifié !'
             );
 
-            return $this->redirectToRoute('app_fact_edit', ['id' => $fact->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_fact_edit', ['id' => $fact->getId(),
+                'projectId' => $project->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('fact/edit.html.twig', [
