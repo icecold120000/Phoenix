@@ -62,9 +62,9 @@
                             {% for fact in facts|filter(fact => fact.dateFact|date('m') < "now"|date('m'))%}
                                 {% if loop.index < 6 %}
                                     <li>
-                                        <a href="{{ path('fact_show',{'id': fact.id}) }}">{{ fact.nameFact }} - {{ fact.dateFact ? fact.dateFact|date('d/m/Y h:m') : '' }}</a>
+                                        <a href="{{ path('app_fact_show',{'id': fact.id}) }}">{{ fact.nameFact }} - {{ fact.dateFact ? fact.dateFact|date('d/m/Y h:m') : '' }}</a>
                                         <span>
-                                            <a class="btn btn-primary" href="{{ path('fact_edit',{'id': fact.id, 'projectId' : project.id}) }}">
+                                            <a class="btn btn-primary" href="{{ path('app_fact_edit',{'id': fact.id, 'projectId' : project.id}) }}">
                                                 <i class="far fa-edit"></i>
                                             </a>
                                             -
@@ -89,9 +89,9 @@
                             {% for fact in facts|filter(fact => fact.dateFact|date('m') >= "now"|date('m'))%}
                                 {% if loop.index < 6 %}
                                     <li>
-                                        <a href="{{ path('fact_show',{'id': fact.id}) }}">{{ fact.nameFact }} - {{ fact.dateFact ? fact.dateFact|date('d/m/Y h:m') : '' }}</a>
+                                        <a href="{{ path('app_fact_show',{'id': fact.id}) }}">{{ fact.nameFact }} - {{ fact.dateFact ? fact.dateFact|date('d/m/Y h:m') : '' }}</a>
                                         <span>
-                                            <a class="btn btn-primary" href="{{ path('fact_edit',{'id': fact.id, 'projectId' : project.id}) }}">
+                                            <a class="btn btn-primary" href="{{ path('app_fact_edit',{'id': fact.id, 'projectId' : project.id}) }}">
                                                 <i class="far fa-edit"></i>
                                             </a>
                                             -
@@ -106,7 +106,7 @@
                             {% endfor %}
                         </ol>
                         <div class="divAdd">
-                            <a class="btn btn-primary" href="{{ path('fact_new',{id: project.id}) }}">Ajouter un nouveau fait</a>
+                            <a class="btn btn-primary" href="{{ path('app_fact_new',{id: project.id}) }}">Ajouter un nouveau fait</a>
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalFact">
                                 Afficher tous les faits
@@ -126,10 +126,10 @@
                                                     {% for fact in facts %}
                                                         <tr>
                                                             <td>
-                                                                <a href="{{ path('fact_show',{'id': fact.id}) }}">{{ fact.nameFact }} - {{ fact.dateFact ? fact.dateFact|date('d/m/Y h:m') : '' }}</a>
+                                                                <a href="{{ path('app_fact_show',{'id': fact.id}) }}">{{ fact.nameFact }} - {{ fact.dateFact ? fact.dateFact|date('d/m/Y h:m') : '' }}</a>
                                                             </td>
                                                             <td>
-                                                                <a class="btn btn-primary" href="{{ path('fact_edit',{'id': fact.id, 'projectId' : project.id}) }}">
+                                                                <a class="btn btn-primary" href="{{ path('app_fact_edit',{'id': fact.id, 'projectId' : project.id}) }}">
                                                                     <i class="far fa-edit"></i>
                                                                 </a>
                                                             </td>
@@ -191,7 +191,7 @@
                                                 {{ risk.probabilityRisk }}%
                                             </td>
                                             <td>
-                                                <a class="btn btn-primary" href="{{ path('risk_edit',{'id': risk.id, 'projectId' : project.id}) }}">
+                                                <a class="btn btn-primary" href="{{ path('app_risk_edit',{'id': risk.id, 'projectId' : project.id}) }}">
                                                     <i class="far fa-edit"></i>
                                                 </a>
                                             </td>
@@ -208,7 +208,7 @@
                             </tbody>
                         </table>
                         <div class="divAdd">
-                            <a class="btn btn-primary" href="{{ path('risk_new',{'id' : project.id}) }}">Ajouter un nouveau risque</a>
+                            <a class="btn btn-primary" href="{{ path('app_risk_new',{'id' : project.id}) }}">Ajouter un nouveau risque</a>
                             <!-- Button trigger modal -->
                             <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalRisk">
                                 Afficher tous les risques
@@ -254,7 +254,7 @@
                                                                 {{ risk.probabilityRisk }}%
                                                             </td>
                                                             <td>
-                                                                <a class="btn btn-primary" href="{{ path('risk_edit',{'id': risk.id, 'projectId' : project.id}) }}">
+                                                                <a class="btn btn-primary" href="{{ path('app_risk_edit',{'id': risk.id, 'projectId' : project.id}) }}">
                                                                     <i class="far fa-edit"></i>
                                                                 </a>
                                                             </td>

@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class TeamController extends AbstractController
 {
     /**
-     * @Route("/", name="team_index", methods={"GET"})
+     * @Route("/", name="app_team_index", methods={"GET"})
      */
     public function index(TeamRepository $teamRepository): Response
     {
@@ -27,7 +27,7 @@ class TeamController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="team_new", methods={"GET", "POST"})
+     * @Route("/new", name="app_team_new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -43,7 +43,7 @@ class TeamController extends AbstractController
                 'L\'équipe a été enregistré !'
             );
 
-            return $this->redirectToRoute('team_new', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_team_new', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('team/new.html.twig', [
@@ -53,7 +53,7 @@ class TeamController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="team_show", methods={"GET"})
+     * @Route("/{id}", name="app_team_show", methods={"GET"})
      */
     public function show(Team $team): Response
     {
@@ -63,7 +63,7 @@ class TeamController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="team_edit", methods={"GET", "POST"})
+     * @Route("/{id}/edit", name="app_team_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Team $team,
                          EntityManagerInterface $entityManager): Response
@@ -78,7 +78,7 @@ class TeamController extends AbstractController
                 'L\'équipe a été modifié !'
             );
 
-            return $this->redirectToRoute('team_edit',
+            return $this->redirectToRoute('app_team_edit',
                 ['id' => $team->getId()], Response::HTTP_SEE_OTHER);
         }
 
@@ -89,7 +89,7 @@ class TeamController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/delete_view", name="team_delete_view", methods={"GET","POST"})
+     * @Route("/{id}/delete_view", name="app_team_delete_view", methods={"GET","POST"})
      */
     public function delete_view(Team $team): Response
     {
@@ -99,7 +99,7 @@ class TeamController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="team_delete", methods={"POST"})
+     * @Route("/{id}", name="app_team_delete", methods={"POST"})
      */
     public function delete(Request $request, Team $team, EntityManagerInterface $entityManager): Response
     {
@@ -112,6 +112,6 @@ class TeamController extends AbstractController
             );
         }
 
-        return $this->redirectToRoute('team_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_team_index', [], Response::HTTP_SEE_OTHER);
     }
 }

@@ -10,11 +10,11 @@
         </div>
     {% endfor %}
     <div>
-        <a href="{{ path('team_new') }}"
+        <a href="{{ path('app_team_new') }}"
            class="btn btn-primary" id="btnAjout">
             Ajouter une nouvelle équipe
         </a>
-        <a href="{{ path('admin') }}"
+        <a href="{{ path('app_admin') }}"
            class="btn btn-secondary" id="btnRetour">
             Retourner à la liste des fonctionnalités
         </a>
@@ -33,17 +33,17 @@
             <tr>
                 <td>{{ team.teamName }}</td>
                 <td>
-                    <a href="{{ path('team_show', {'id': team.id}) }}" class="btn btn-info">
+                    <a href="{{ path('app_team_show', {'id': team.id}) }}" class="btn btn-info">
                         Voir détail
                     </a>
                 </td>
                 <td>
-                    <a href="{{ path('team_edit', {'id': team.id}) }}" class="btn btn-primary">
+                    <a href="{{ path('app_team_edit', {'id': team.id}) }}" class="btn btn-primary">
                         <i class="far fa-edit"></i>
                     </a>
                 </td>
                 <td>
-                    <a href="{{ path('team_delete_view', {'id': team.id}) }}"
+                    <a href="{{ path('app_team_delete_view', {'id': team.id}) }}"
                        class="btn btn-danger">
                         <i class="fas fa-trash"></i>
                     </a>

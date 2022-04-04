@@ -12,6 +12,15 @@
            class="btn btn-secondary" id="btnRetour">
             Revenir à la liste
         </a>
+        {% if fact.isValidated %}
+            <form method="post" action="{{ path('app_validate_fact',{'id': fact.id}) }}" onsubmit="return confirm('Voulez-vous vraiment invalider ce fait ?');">
+                <button class="btn btn-danger">Invalider le fait</button>
+            </form>
+        {% else %}
+            <form method="post" action="{{ path('app_validate_fact',{'id': fact.id}) }}" onsubmit="return confirm('Voulez-vous vraiment valider ce fait ?');">
+                <button class="btn btn-success">Valider le fait</button>
+            </form>
+        {% endif %}
     </div>
     <div>
         <table class="table tableAdmin">
@@ -28,17 +37,6 @@
                     <th>Est validé</th>
                     <td>{{ fact.isValidated ? '<i class="fas fa-check"></i>' :
                         '<i class="fas fa-times"></i>' }}
-                    </td>
-                    <td>
-                        {% if fact.isValidated %}
-                            <form method="post" action="{{ path('validate_fact',{'id': fact.id}) }}" onsubmit="return confirm('Voulez-vous vraiment invalider ce fait ?');">
-                                <button class="btn btn-danger">Non validée</button>
-                            </form>
-                        {% else %}
-                            <form method="post" action="{{ path('validate_fact',{'id': fact.id}) }}" onsubmit="return confirm('Voulez-vous vraiment valider ce fait ?');">
-                                <button class="btn btn-success">Validée</button>
-                            </form>
-                        {% endif %}
                     </td>
                 </tr>
                 <tr>

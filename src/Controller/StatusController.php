@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class StatusController extends AbstractController
 {
     /**
-     * @Route("/", name="status_index", methods={"GET","POST"})
+     * @Route("/", name="app_status_index", methods={"GET","POST"})
      */
     public function index(StatusRepository $statusRepository,
                           PaginatorInterface $paginator,
@@ -49,7 +49,7 @@ class StatusController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="status_new", methods={"GET", "POST"})
+     * @Route("/new", name="app_status_new", methods={"GET", "POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -65,7 +65,7 @@ class StatusController extends AbstractController
                 'Le statut a été sauvegardé !'
             );
 
-            return $this->redirectToRoute('status_new', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_status_new', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('status/new.html.twig', [
@@ -75,7 +75,7 @@ class StatusController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="status_edit", methods={"GET", "POST"})
+     * @Route("/{id}/edit", name="app_status_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Status $status, EntityManagerInterface $entityManager): Response
     {
@@ -95,7 +95,7 @@ class StatusController extends AbstractController
                 'Le statut a été modifié !'
             );
 
-            return $this->redirectToRoute('status_edit', ['id'=> $status->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_status_edit', ['id'=> $status->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('status/edit.html.twig', [
@@ -105,7 +105,7 @@ class StatusController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/delete_view", name="status_delete_view", methods={"GET","POST"})
+     * @Route("/{id}/delete_view", name="app_status_delete_view", methods={"GET","POST"})
      */
     public function delete_view(Status $status, ProjectRepository $projectRepo): Response
     {
@@ -116,7 +116,7 @@ class StatusController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="status_delete", methods={"POST"})
+     * @Route("/{id}", name="app_status_delete", methods={"POST"})
      */
     public function delete(Request $request, Status $status, EntityManagerInterface $entityManager, ProjectRepository $projectRepo): Response
     {
@@ -128,7 +128,7 @@ class StatusController extends AbstractController
                 'Erreur votre status est encore utilisé dans un ou plusieurs projet(s).
                 Veuillez modifier le(s) projet(s) ci-dessous leur statut !'
             );
-            return $this->redirectToRoute('status_delete_view',['id' => $status->getId()]);
+            return $this->redirectToRoute('app_status_delete_view',['id' => $status->getId()]);
         }
         else {
             if ($this->isCsrfTokenValid('delete'.$status->getId(), $request->request->get('_token'))) {
@@ -139,7 +139,7 @@ class StatusController extends AbstractController
                     'Votre statut a été supprimé !'
                 );
             }
-            return $this->redirectToRoute('status_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_status_index', [], Response::HTTP_SEE_OTHER);
         }
 
     }

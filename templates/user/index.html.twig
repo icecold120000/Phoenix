@@ -11,11 +11,11 @@
             </div>
         {% endfor %}
         <div>
-            <a href="{{ path('user_new') }}"
+            <a href="{{ path('app_user_new') }}"
              class="btn btn-primary" id="btnAjout">
                 Ajouter un nouvel utilisateur
             </a>
-            <a href="{{ path('admin') }}"
+            <a href="{{ path('app_admin') }}"
              class="btn btn-secondary" id="btnRetour">
                 Retourner à la liste des fonctionnalités
             </a>
@@ -50,7 +50,7 @@
                 <h2>Aucun utilisateur n'a été trouvé</h2>
             {% elseif users|length == 1 %}
                 <h2>{{users|length }} utilisateur trouvé</h2>
-            {% elseif users|length > 1 and users|length < 30 %}
+            {% elseif users|length > 1 %}
                 <h2>{{users|length }} utilisateurs trouvés</h2>
             {% else %}
                 <h2>{{usersTotal|length }} utilisateurs trouvés</h2>
@@ -82,14 +82,14 @@
                         {% endif %}
                     </td>
                     <td>
-                        <a href="{{ path('user_edit',
+                        <a href="{{ path('app_user_edit',
                         {'id': user.id}) }}" class="btn btn-primary">
                             <i class="far fa-edit"></i>
                         </a>
                     </td>
                     <td>
                         {%if user.roles|json_encode != '["ROLE_ADMIN","ROLE_USER"]' %}
-                            <a href="{{ path('user_delete_view', {'id': user.id}) }}"
+                            <a href="{{ path('app_user_delete_view', {'id': user.id}) }}"
                              class="btn btn-danger">
                                 <i class="fas fa-trash"></i>
                             </a>

@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/risk')]
 class RiskController extends AbstractController
 {
-    #[Route('/new/{id}', name: 'risk_new', methods: ['GET', 'POST'])]
+    #[Route('/new/{id}', name: 'app_risk_new', methods: ['GET', 'POST'])]
     /**
      * @Entity("project", expr="repository.find(id)")
      */
@@ -38,7 +38,7 @@ class RiskController extends AbstractController
                 'Votre risque a été ajouté !'
             );
 
-            return $this->redirectToRoute('risk_new', ['id' => $project->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_risk_new', ['id' => $project->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('risk/new.html.twig', [
@@ -48,7 +48,7 @@ class RiskController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit/{projectId}', name: 'risk_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit/{projectId}', name: 'app_risk_edit', methods: ['GET', 'POST'])]
     /**
      * @Entity("project", expr="repository.find(projectId)")
      */
@@ -66,7 +66,7 @@ class RiskController extends AbstractController
                 'SuccessRisk',
                 'Votre risque a été modifié !'
             );
-            return $this->redirectToRoute('risk_index', ['id' => $risk->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_risk_index', ['id' => $risk->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('risk/edit.html.twig', [
@@ -76,7 +76,7 @@ class RiskController extends AbstractController
         ]);
     }
 
-    #[Route('/{projectId}/{id}', name: 'risk_delete', methods: ['POST'])]
+    #[Route('/{projectId}/{id}', name: 'app_risk_delete', methods: ['POST'])]
     /**
      * @Entity("project", expr="repository.find(projectId)")
      */

@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste de statut{% endblock %}
+{% block title %}Liste de statuts{% endblock %}
 
 {% block body %}
-    <h1>Liste de statut</h1>
+    <h1>Liste de statuts</h1>
     {% for message in app.flashes('SuccessDeleteStatus') %}
         <div class="erreur">
             {{ message }}
         </div>
     {% endfor %}
-    <a href="{{ path('status_new') }}">
+    <a href="{{ path('app_status_new') }}">
         <button class="btn btn-info">Ajouter un nouveau statut</button>
     </a>
     <div>
@@ -44,12 +44,12 @@
                 <td style="background-color: {{ status.colorStatus }}"></td>
                 <td>{{ status.slug }}</td>
                 <td>
-                    <a href="{{ path('status_edit', {'id': status.id}) }}" class="btn btn-primary">
+                    <a href="{{ path('app_status_edit', {'id': status.id}) }}" class="btn btn-primary">
                         <i class="far fa-edit"></i>
                     </a>
                 </td>
                 <td>
-                    <a href="{{ path('status_delete_view', {'id': status.id}) }}"
+                    <a href="{{ path('app_status_delete_view', {'id': status.id}) }}"
                        class="btn btn-danger">
                         <i class="fas fa-trash"></i>
                     </a>
@@ -57,7 +57,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="5" class="erreur">Aucun status n'a été trouvé !</td>
+                <td colspan="5" class="erreur">Aucun statut n'a été trouvé !</td>
             </tr>
         {% endfor %}
         </tbody>

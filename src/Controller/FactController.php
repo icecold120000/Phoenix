@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/fact')]
 class FactController extends AbstractController
 {
-    #[Route('/new/{id}', name: 'fact_new', methods: ['GET', 'POST'])]
+    #[Route('/new/{id}', name: 'app_fact_new', methods: ['GET', 'POST'])]
     /**
      * @Entity("project", expr="repository.find(id)")
      */
@@ -38,7 +38,7 @@ class FactController extends AbstractController
                 'Votre fait a été ajouté !'
             );
 
-            return $this->redirectToRoute('fact_new', ['id' => $project->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_fact_new', ['id' => $project->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('fact/new.html.twig', [
@@ -47,7 +47,7 @@ class FactController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/show', name: 'fact_show', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'app_fact_show', methods: ['GET'])]
     public function show(Fact $fact): Response
     {
         return $this->render('fact/show.html.twig', [
@@ -55,7 +55,7 @@ class FactController extends AbstractController
         ]);
     }
 
-    #[Route('/validate/{id}', name: 'validate_fact', methods: ['GET','POST'])]
+    #[Route('/validate/{id}', name: 'app_validate_fact', methods: ['GET','POST'])]
     public function validateFact(Fact $fact, EntityManagerInterface $entityManager): RedirectResponse
     {
         if ($fact->getIsValidated() === false) {
@@ -67,11 +67,11 @@ class FactController extends AbstractController
         $entityManager->persist($fact);
         $entityManager->flush();
 
-        return $this->redirectToRoute('fact_show', ['id' => $fact->getId()], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_fact_show', ['id' => $fact->getId()], Response::HTTP_SEE_OTHER);
 
     }
 
-    #[Route('/{id}/edit/{projectId}', name: 'fact_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit/{projectId}', name: 'app_fact_edit', methods: ['GET', 'POST'])]
     /**
      * @Entity("project", expr="repository.find(projectId)")
      */
@@ -91,7 +91,7 @@ class FactController extends AbstractController
                 'Votre fait a été modifié !'
             );
 
-            return $this->redirectToRoute('fact_edit', ['id' => $fact->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_fact_edit', ['id' => $fact->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('fact/edit.html.twig', [
@@ -101,7 +101,7 @@ class FactController extends AbstractController
         ]);
     }
 
-    #[Route('/{projectId}/{id}', name: 'fact_delete', methods: ['POST'])]
+    #[Route('/{projectId}/{id}', name: 'app_fact_delete', methods: ['POST'])]
     /**
      * @Entity("project", expr="repository.find(projectId)")
      */

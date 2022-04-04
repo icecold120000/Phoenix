@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/", name="user_index", methods={"GET", "POST"})
+     * @Route("/", name="app_user_index", methods={"GET", "POST"})
      */
     public function index(UserRepository $userRepository, Request $request,
                           PaginatorInterface $paginator): Response
@@ -54,7 +54,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="user_new", methods={"GET", "POST"})
+     * @Route("/new", name="app_user_new", methods={"GET", "POST"})
      */
     public function new(Request $request,
                         UserPasswordHasherInterface $userPasswordHasher,
@@ -82,7 +82,7 @@ class UserController extends AbstractController
                 'L\'utilisateur a été enregistré !'
             );
 
-            return $this->redirectToRoute('user_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('user/new.html.twig', [
@@ -92,7 +92,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="user_edit", methods={"GET", "POST"})
+     * @Route("/{id}/edit", name="app_user_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, User $user,
                          UserPasswordHasherInterface $userPasswordHasher,
@@ -117,7 +117,7 @@ class UserController extends AbstractController
                 'L\'utilisateur a été modifié !'
             );
 
-            return $this->redirectToRoute('user_edit', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_user_edit', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('user/edit.html.twig', [
@@ -127,7 +127,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/delete_view", name="user_delete_view", methods={"GET","POST"})
+     * @Route("/{id}/delete_view", name="app_user_delete_view", methods={"GET","POST"})
      */
     public function delete_view(User $user): Response
     {
@@ -137,7 +137,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="user_delete", methods={"POST"})
+     * @Route("/{id}", name="app_user_delete", methods={"POST"})
      */
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
@@ -150,6 +150,6 @@ class UserController extends AbstractController
             );
         }
 
-        return $this->redirectToRoute('user_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
 }
