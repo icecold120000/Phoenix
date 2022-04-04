@@ -1,0 +1,20 @@
+{{ form_start(form) }}
+    {{form_label(form.namePortfolio)}}
+    <div class="divInput">
+        {{form_widget(form.namePortfolio)}}
+    </div>
+    {% if form_errors(form.namePortfolio) %}
+        <div class="erreur">
+            {{form_errors(form.namePortfolio)}}
+        </div>
+    {% endif %}
+    {{form_label(form.responsablePortfolio)}}
+    <div class="divInput">
+        {{form_widget(form.responsablePortfolio)}}
+    </div>
+    {% if form_errors(form.responsablePortfolio) %}
+        <div class="erreur">
+            {{form_errors(form.responsablePortfolio)}}
+        </div>
+    {% endif %}
+{{ form_end(form) }}

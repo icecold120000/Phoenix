@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ portfolio.namePortfolio }}{% endblock %}
+
+{% block body %}
+    <h1>{{ portfolio.namePortfolio }}</h1>
+
+    <h2>Nom du responsable du portfolio : {{ portfolio.responsablePortfolio.firstnameUser }} {{ portfolio.responsablePortfolio.lastnameUser }}</h2>
+
+    <h3>Liste de projets affiliés :</h3>
+    <table class="table tableAdmin">
+        <thead>
+            <tr>
+                <th>Nom du projet</th>
+                <th>Détail projet</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for project in portfolio.projectsPortfolio %}
+                <tr>
+                    <td>{{ project.nameProject }}</td>
+                    <td>
+                        <a href="{{ path('app_project_show',{'projectId': project.id}) }}"
+                           class="btn btn-info">
+                            Lien
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
