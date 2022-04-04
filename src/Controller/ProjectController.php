@@ -79,6 +79,7 @@ class ProjectController extends AbstractController
             $project
                 ->setCreatedAt(new \DateTime('now'))
                 ->setUpdatedAt(new \DateTime('now'))
+                ->setArchiveProject(false);
             ;
 
             $entityManager->persist($project);

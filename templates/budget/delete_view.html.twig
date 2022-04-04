@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Suppression d'un budget {% endblock %}
+
+{% block body %}
+    <main>
+        <h1>Suppression d'un budget</h1>
+
+        <h2>Appuyer sur le bouton Supprimer pour supprimer le budget choisi : {{ budget.nameBudget }}</h2>
+
+        {% for message in app.flashes('deleteDangerBudget') %}
+            <div class="flash-danger erreur">
+                <p>{{ message|replace({".":".</br>"})|raw }}</p>
+            </div>
+            <div>
+                <table class="table tableSuppr">
+                    <thead>
+                        <tr>
+                            <th>Nom du projet</th>
+                            <th>Modifier</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for project in budget.projects %}
+                            <tr>
+                                <td>{{project.nameProject}}</td>
+                                <td>
+                                    <a href="{{ path('app_project_edit',
+                                        {'id': project.id}) }}" class="btn btn-primary">
+                                        <i class="far fa-edit"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endfor %}
+
+        {{ include('budget/_delete_form.html.twig') }}
+        <div>
+            <a href="{{ path('app_project_show',{'projectId': project.id}) }}"
+               class="btn btn-info">
+                Revenir à la liste
+            </a>
+        </div>
+    </main>
+{% endblock %}

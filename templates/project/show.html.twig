@@ -37,6 +37,7 @@
                         <div class="rightTd">
                             <span>Équipe projet : {{ project.productionTeam.teamName }}</span>
                             <span>Équipe client : {{ project.teamClient.teamName }}</span>
+                            <span>Portfolio assigné : {{ project.portfolio ? project.portfolio.namePortfolio : 'Non assigné' }}</span>
                         </div>
                     </td>
                 </tr>
@@ -47,35 +48,41 @@
                 <tr>
                     <td>Budget</td>
                     <td>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Initial</th>
-                                    <th>Utilisé</th>
-                                    <th>Reste à faire</th>
-                                    <th>Atterrissage</th>
-                                    <th>Modifier</th>
-                                    <th>Supprimer</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>{{ project.projectBudget.initialBudget }}€</td>
-                                    <td>{{ project.projectBudget.budgetUsed }}€</td>
-                                    <td>{{ project.projectBudget.quantityleftBudget }}€</td>
-                                    {% set atterrissage =  project.projectBudget.quantityleftBudget +  project.projectBudget.budgetUsed %}
-                                    <td>{{ atterrissage }}€</td>
-                                    <td>
-                                        <a class="btn btn-primary" href="{{ path('app_budget_edit',{'id': project.projectBudget.id, 'projectId' : project.id}) }}">
-                                            <i class="far fa-edit"></i>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        {{ include('budget/_delete_form.html.twig') }}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        {% if project.projectBudget %}
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Initial</th>
+                                        <th>Utilisé</th>
+                                        <th>Reste à faire</th>
+                                        <th>Atterrissage</th>
+                                        <th>Modifier</th>
+                                        <th>Supprimer</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{{ project.projectBudget.initialBudget }}€</td>
+                                        <td>{{ project.projectBudget.budgetUsed }}€</td>
+                                        <td>{{ project.projectBudget.quantityleftBudget }}€</td>
+                                        {% set atterrissage =  project.projectBudget.quantityleftBudget +  project.projectBudget.budgetUsed %}
+                                        <td>{{ atterrissage }}€</td>
+                                        <td>
+                                            <a class="btn btn-primary" href="{{ path('app_budget_edit',{'id': project.projectBudget.id, 'projectId' : project.id}) }}">
+                                                <i class="far fa-edit"></i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-danger" href="{{ path('app_budget_delete_view',{'id': project.projectBudget.id, 'projectId' : project.id}) }}">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <p class="erreur">Aucun budget n'a été assigné !</p>
+                        {% endif %}
                     </td>
                 </tr>
                 <tr>
@@ -117,7 +124,7 @@
                                 {% else %}
                                     <tr>
                                         <td colspan="5">
-                                            <span class="erreur">Aucun fait n'a été trouvé !</span>
+                                            <span class="erreur">Aucun fait passé n'a été trouvé !</span>
                                         </td>
                                     </tr>
                                 {% endfor %}
@@ -166,7 +173,7 @@
                                 {% else %}
                                     <tr>
                                         <td colspan="5">
-                                            <span class="erreur">Aucun fait n'a été trouvé !</span>
+                                            <span class="erreur">Aucun fait à venir n'a été trouvé !</span>
                                         </td>
                                     </tr>
                                 {% endfor %}

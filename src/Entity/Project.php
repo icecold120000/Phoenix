@@ -61,7 +61,7 @@ class Project
     private $productionTeam;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Budget::class, inversedBy="projects", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity=Budget::class, inversedBy="projects")
      */
     private $projectBudget;
 

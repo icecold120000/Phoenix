@@ -39,14 +39,13 @@ security:
         - { path: ^/budget, roles: IS_AUTHENTICATED_FULLY}
         - { path: ^/budget/new, roles: IS_AUTHENTICATED_FULLY}
         - { path: ^/budget/edit, roles: IS_AUTHENTICATED_FULLY}
-        - { path: ^/budget/delete, roles: IS_AUTHENTICATED_FULLY}
         - { path: ^/dashboard, roles: IS_AUTHENTICATED_FULLY}
         - { path: ^/fact, roles: IS_AUTHENTICATED_FULLY}
         - { path: ^/fact/new, roles: IS_AUTHENTICATED_FULLY}
         - { path: ^/fact/edit, roles: IS_AUTHENTICATED_FULLY}
         - { path: ^/fact/show, roles: IS_AUTHENTICATED_FULLY}
         - { path: ^/fact/validate, roles: IS_AUTHENTICATED_FULLY}
-        - { path: ^/porfolio, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/portfolio, roles: ROLE_ADMIN }
         - { path: ^/portfolio/new, roles: ROLE_ADMIN }
         - { path: ^/portfolio/edit, roles: ROLE_ADMIN }
         - { path: ^/portfolio/show, roles: ROLE_ADMIN }
@@ -65,7 +64,7 @@ security:
         - { path: ^/team, roles: ROLE_ADMIN }
         - { path: ^/team/new, roles: ROLE_ADMIN }
         - { path: ^/team/edit, roles: ROLE_ADMIN }
-        - { path: ^/team/edit, roles: ROLE_ADMIN }
+        - { path: ^/team/show, roles: ROLE_ADMIN }
         - { path: ^/team/delete_view, roles: ROLE_ADMIN }
         - { path: ^/user, roles: ROLE_ADMIN }
         - { path: ^/user/new, roles: ROLE_ADMIN }

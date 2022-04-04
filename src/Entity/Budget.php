@@ -36,9 +36,14 @@ class Budget
     private $quantityLeftBudget;
 
     /**
-     * @ORM\OneToMany(targetEntity=Project::class, mappedBy="projectBudget")
+     * @ORM\OneToMany(targetEntity=Project::class, mappedBy="projectBudget", cascade={"persist"})
      */
     private $projects;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $nameBudget;
 
     public function __construct()
     {
@@ -112,6 +117,18 @@ class Budget
                 $project->setProjectBudget(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNameBudget(): ?string
+    {
+        return $this->nameBudget;
+    }
+
+    public function setNameBudget(string $nameBudget): self
+    {
+        $this->nameBudget = $nameBudget;
 
         return $this;
     }

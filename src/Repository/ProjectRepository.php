@@ -128,4 +128,18 @@ class ProjectRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+
+    /**
+     * @return Project[] Returns an array of Project objects
+     */
+    public function findByBudget($budgetId): array
+    {
+        return $this->createQueryBuilder('p')
+            ->leftJoin('p.projectBudget','b')
+            ->andWhere('b.id = :budget')
+            ->setParameter('budget', $budgetId)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

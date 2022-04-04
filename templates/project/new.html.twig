@@ -17,6 +17,15 @@
                             {{form_errors(project_form.nameProject)}}
                         </div>
                     {% endif %}
+                    {{form_label(project_form.codeProject)}}
+                    <div class="divInput">
+                        {{form_widget(project_form.codeProject)}}
+                    </div>
+                    {% if form_errors(project_form.codeProject) %}
+                        <div class="erreur">
+                            {{form_errors(project_form.codeProject)}}
+                        </div>
+                    {% endif %}
                     {{form_label(project_form.descriptionProject)}}
                     <div class="divInput">
                         {{form_widget(project_form.descriptionProject)}}
@@ -33,6 +42,24 @@
                     {% if form_errors(project_form.status) %}
                         <div class="erreur">
                             {{form_errors(project_form.status)}}
+                        </div>
+                    {% endif %}
+                    {{form_label(project_form.productionTeam)}}
+                    <div class="divInput">
+                        {{form_widget(project_form.productionTeam)}}
+                    </div>
+                    {% if form_errors(project_form.productionTeam) %}
+                        <div class="erreur">
+                            {{form_errors(project_form.productionTeam)}}
+                        </div>
+                    {% endif %}
+                    {{form_label(project_form.archiveProject)}}
+                    <div class="divInput">
+                        {{form_widget(project_form.archiveProject)}}
+                    </div>
+                    {% if form_errors(project_form.archiveProject) %}
+                        <div class="erreur">
+                            {{form_errors(project_form.archiveProject)}}
                         </div>
                     {% endif %}
                 </div>
@@ -62,6 +89,24 @@
                     {% if form_errors(project_form.portfolio) %}
                         <div class="erreur">
                             {{form_errors(project_form.portfolio)}}
+                        </div>
+                    {% endif %}
+                    {{form_label(project_form.teamClient)}}
+                    <div class="divInput">
+                        {{form_widget(project_form.teamClient)}}
+                    </div>
+                    {% if form_errors(project_form.teamClient) %}
+                        <div class="erreur">
+                            {{form_errors(project_form.teamClient)}}
+                        </div>
+                    {% endif %}
+                    {{form_label(project_form.projectBudget)}}
+                    <div class="divInput">
+                        {{form_widget(project_form.projectBudget)}}
+                    </div>
+                    {% if form_errors(project_form.projectBudget) %}
+                        <div class="erreur">
+                            {{form_errors(project_form.projectBudget)}}
                         </div>
                     {% endif %}
                 </div>

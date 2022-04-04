@@ -32,7 +32,7 @@
                 </ol>
             </div>
             <div>
-                <h2><i class="far fa-edit"></i> Derniers projets mis à jour </h2>
+                <h2><i class="far fa-edit"></i> Mes derniers projets mis à jour</h2>
                 <ol>
                     {% for updatedProject in lastUpdatedProjects %}
                         <li><a href="{{ path('app_project_show',{'projectId': updatedProject.id}) }}">{{ updatedProject.nameProject }}</a> - {{ updatedProject.updatedAt|date('d/m/Y') }}</li>
@@ -40,7 +40,7 @@
                         <p class="erreur">Aucun projet n'a été trouvé !</p>
                     {% endfor %}
                 </ol>
-                <a href="{{ path('app_homepage') }}">Afficher tous les projets</a>
+                <a href="{{ path('app_homepage') }}">Afficher tous mes projets</a>
             </div>
         </div>
         <div id="screenRight">
@@ -60,6 +60,8 @@
                 <ol>
                     {% for status in statuses %}
                         <p>{{ status.name }} : {{ status.projects|length }}</p>
+                    {% else %}
+                        <p class="erreur">Aucun statut n'a été trouvé !</p>
                     {% endfor %}
                 </ol>
             </div>

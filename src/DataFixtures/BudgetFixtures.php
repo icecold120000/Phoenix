@@ -14,6 +14,7 @@ class BudgetFixtures extends Fixture
 
             $budget= new Budget();
             $budget
+                ->setNameBudget('budget '.$i)
                 ->setInitialBudget(random_int(1000,8000))
                 ->setBudgetUsed(random_int(1000,8000))
                 ->setQuantityLeftBudget(random_int(1000,10000))

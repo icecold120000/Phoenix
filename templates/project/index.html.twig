@@ -75,8 +75,8 @@
                                 <td>{{ project.codeProject }}</td>
                                 <td>{{ project.nameProject }}</td>
                                 <td style="background-color: {{ project.status.colorStatus }}"></td>
-                                <td>{{ project.productionTeam.teamName }}</td>
-                                <td>{{ project.teamClient.teamName }}</td>
+                                <td> {{ project.productionTeam ? project.productionTeam.teamName : 'Non assigné' }}</td>
+                                <td>{{ project.productionTeam ? project.teamClient.teamName : 'Non assigné' }}</td>
                                 <td>{{ project.startedAt ? project.startedAt|date('d/m/Y') : '' }}</td>
                                 <td>{{ project.endedAt ? project.endedAt|date('d/m/Y') : '' }}</td>
                                 <td>
@@ -100,7 +100,7 @@
                             </tr>
                         {% else %}
                             <tr>
-                                <td colspan="10" class="erreur">Aucun projet trouvé !</td>
+                                <td colspan="10" class="erreur">Aucun projet n'a été trouvé !</td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -147,9 +147,13 @@
                                 </tr>
                             {% else %}
                                 <tr>
-                                    <td colspan="10" class="erreur">Aucun projet trouvé !</td>
+                                    <td colspan="10" class="erreur">Aucun projet à risque n'a été trouvé !</td>
                                 </tr>
                             {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="10" class="erreur">Aucun projet n'a été trouvé !</td>
+                            </tr>
                         {% endfor %}
                     </tbody>
                 </table>
@@ -175,8 +179,8 @@
                                 <td>{{ project.codeProject }}</td>
                                 <td>{{ project.nameProject }}</td>
                                 <td style="background-color: {{ project.status.colorStatus }}"></td>
-                                <td>{{ project.productionTeam.teamName }}</td>
-                                <td>{{ project.teamClient.teamName }}</td>
+                                <td>{{ project.productionTeam ? project.productionTeam.teamName : 'Non assigné' }}</td>
+                                <td>{{ project.productionTeam ? project.teamClient.teamName : 'Non assigné' }}</td>
                                 <td>{{ project.startedAt ? project.startedAt|date('d/m/Y') : '' }}</td>
                                 <td>{{ project.endedAt ? project.endedAt|date('d/m/Y') : '' }}</td>
                                 <td>
