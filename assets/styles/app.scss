@@ -93,3 +93,31 @@ ul.pagination{
     display: flex;
     flex-direction: column;
 }
+
+/*Formulaire de connexion*/
+
+#formConnection form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#loginSubmit {
+    margin-top: 2em;
+}
+
+.divInputConnection {
+    width: 60%;
+    margin: 1rem 0;
+}
+
+/*Formulaire d'inscription*/
+
+#formRegister div.container-fluid{
+    display: flex;
+    flex-direction: column;
+}
+
+#formRegister div#divAjout {
+    margin: 1rem 0;
+}
