@@ -50,7 +50,8 @@ class RiskType extends AbstractType
                 'required' => true,
             ])
             ->add('probabilityRisk', NumberType::class,[
-                'label' => 'Probabilité du risque (en)',
+                'label' => 'Probabilité du risque',
+                'help' => 'Saisir un nombre',
                 'required' => true,
                 'invalid_message' => 'Veuillez saisir un nombre !',
                 'constraints' => [

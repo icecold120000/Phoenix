@@ -55,6 +55,15 @@
                         {{form_errors(project_form.endedAt)}}
                     </div>
                 {% endif %}
+                {{form_label(project_form.portfolio)}}
+                <div class="divInput">
+                    {{form_widget(project_form.portfolio)}}
+                </div>
+                {% if form_errors(project_form.portfolio) %}
+                    <div class="erreur">
+                        {{form_errors(project_form.portfolio)}}
+                    </div>
+                {% endif %}
             </div>
             {{ form_end(project_form) }}
         </div>

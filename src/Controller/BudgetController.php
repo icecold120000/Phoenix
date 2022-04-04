@@ -28,7 +28,7 @@ class BudgetController extends AbstractController
             $entityManager->flush();
             $this->addFlash(
                 'SuccessBudget',
-                'Votre fait a été sauvegardé !'
+                'Votre budget a été sauvegardé !'
             );
             return $this->redirectToRoute('app_budget_new', [], Response::HTTP_SEE_OTHER);
         }
@@ -55,7 +55,7 @@ class BudgetController extends AbstractController
             $entityManager->persist($project);
             $entityManager->flush();
             $this->addFlash(
-                'SuccessFact',
+                'SuccessBudget',
                 'Votre budget a été modifié !'
             );
 

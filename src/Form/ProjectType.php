@@ -2,8 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Portfolio;
 use App\Entity\Project;
 use App\Entity\Status;
+use App\Repository\PortfolioRepository;
 use App\Repository\StatusRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -49,6 +51,16 @@ class ProjectType extends AbstractType
                 },
                 'choice_label' => 'name',
                 'required' => true,
+            ])
+            ->add('portfolio', EntityType::class,[
+                'label' => 'Portfolio assigné',
+                'class' => Portfolio::class,
+                'query_builder' => function (PortfolioRepository $er) {
+                    return $er->createQueryBuilder('p')
+                        ->orderBy('p.namePortfolio', 'ASC');
+                },
+                'choice_label' => 'namePortfolio',
+                'required' => false,
             ])
         ;
     }
